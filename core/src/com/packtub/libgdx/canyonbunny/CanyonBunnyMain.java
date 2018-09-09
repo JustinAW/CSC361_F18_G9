@@ -3,19 +3,9 @@ package com.packtub.libgdx.canyonbunny;
 import com.badlogic.gdx.ApplicationListener;
 import com.packtub.libgdx.canyonbunny.game.WorldController;
 import com.packtub.libgdx.canyonbunny.game.WorldRenderer;
+import com.badlogic.gdx.Application;
+import com.badlogic.gdx.GDX;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 
-public class CanyonBunnyMain implements ApplicationListener
-{
-	private static final String TAG =		
-			CanyonBunnyMain.class.getName();
-	
-	private WorldController worldController;
-	private WorldRenderer worldRenderer;
-	
-	@Override public void create () { }
-	@Override public void render () { }
-	@Override public void resize (int width, int height) { }
-	@Override public void pause () { }
-	@Override public void resume () { }
-	@Override public void dispose () { }
-}
+
