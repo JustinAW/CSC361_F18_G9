@@ -5,6 +5,9 @@ import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Application.ApplicationType;
+import com.badlogic.gdx.Input.Keys;
 
 public class WorldController 
 {
@@ -70,7 +73,25 @@ public class WorldController
 	
 	public void update (float deltaTime)
 	{
+		handleDebugInput(deltaTime);
 		updateTestObjects(deltaTime);
+	}
+	
+	private void handleDebugInput (float deltaTime)
+	{
+		if (Gdx.app.getType() != ApplicationType.Desktop) return;
+		
+		//Selected Sprite Controls
+		float sprMoveSpeed = 5 * deltaTime;
+		if (Gdx.input.isKeyPressed(Keys.A)) moveSelectedSprite(-sprMoveSpeed, 0);
+		if (Gdx.input.isKeyPressed(Keys.D)) moveSelectedSprite(sprMoveSpeed, 0);
+		if (Gdx.input.isKeyPressed(Keys.W)) moveSelectedSprite(sprMoveSpeed, 0);
+		if (Gdx.input.isKeyPressed(Keys.S)) moveSelectedSprite(-sprMoveSpeed, 0);
+	}
+	
+	private void moveSelectedSprite (float x, float y)
+	{
+		testSprites[selectedSprite].translate(x, y);
 	}
 	
 	private void updateTestObjects(float deltaTime)
