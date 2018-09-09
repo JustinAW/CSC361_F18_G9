@@ -1,5 +1,18 @@
 package com.packtub.libgdx.canyonbunny.game;
 
-public class WorldController {
-
+public class WorldController 
+{
+	private static final String TAG = WorldController.class.getName();
+	public WorldController ()
+	{
+		
+	}
+	private void init ()
+	{
+		
+	}
+	public void update (float deltaTime)
+	{
+		
+	}
 }
