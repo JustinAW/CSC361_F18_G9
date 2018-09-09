@@ -7,7 +7,7 @@ import com.packtub.libgdx.canyonbunny.util.Constants;
 
 public class WorldRenderer implements Disposable
 {
-	private OrthographicCamera;
+	private OrthographicCamera camera;
 	private SpriteBatch batch;
 	private WorldController worldController;
 	
