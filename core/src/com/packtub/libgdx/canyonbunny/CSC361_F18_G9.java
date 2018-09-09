@@ -29,5 +29,6 @@ public class CSC361_F18_G9 extends ApplicationAdapter {
 	public void dispose () {
 		batch.dispose();
 		img.dispose();
+		
 	}
 }
