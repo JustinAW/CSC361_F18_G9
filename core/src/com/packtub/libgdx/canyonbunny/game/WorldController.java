@@ -9,6 +9,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
+import com.packtub.libgdx.canyonbunny.util.CameraHelper;
 
 public class WorldController extends InputAdapter
 {
@@ -22,9 +23,12 @@ public class WorldController extends InputAdapter
 		init();
 	}
 	
+	public CameraHelper cameraHelper;
+	
 	private void init ()
 	{
 		Gdx.input.setInputProcessor(this);
+		cameraHelper = new CameraHelper();
 		initTestObjects();
 	}
 	
@@ -77,6 +81,7 @@ public class WorldController extends InputAdapter
 	{
 		handleDebugInput(deltaTime);
 		updateTestObjects(deltaTime);
+		cameraHelper.update(deltaTime);
 	}
 	
 	private void handleDebugInput (float deltaTime)
@@ -121,7 +126,18 @@ public class WorldController extends InputAdapter
 		else if (keycode == Keys.SPACE)
 		{
 			selectedSprite = (selectedSprite + 1) % testSprites.length;
+			// Update camera's target to follow the currently selected sprite
+			if (cameraHelper.hasTarget())
+			{
+				cameraHelper.setTarget(testSprites[selectedSprite]);
+			}
 			Gdx.app.debug(TAG,  "Sprite #" + selectedSprite + " selected");
+		}
+		// Toggle camera follow
+		else if (keycode == Keys.ENTER)
+		{
+			cameraHelper.setTarget(cameraHelper.hasTarget() ? null : testSprites[selectedSprite]);
+			Gdx.app.debug(TAG,  "Camera follow enabled: " + cameraHelper.hasTarget());
 		}
 		return false;
 	}
