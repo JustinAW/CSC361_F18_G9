@@ -1,16 +1,16 @@
-package com.packtub.libgdx.canyonbunny;
+package com.paktpub.libgdx.canyonbunny;
 
 import com.badlogic.gdx.ApplicationListener;
-import com.packtub.libgdx.canyonbunny.game.WorldController;
-import com.packtub.libgdx.canyonbunny.game.WorldRenderer;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.paktpub.libgdx.canyonbunny.game.WorldController;
+import com.paktpub.libgdx.canyonbunny.game.WorldRenderer;
 
 public class CanyonBunnyMain implements ApplicationListener
 {
 	private static final String TAG =		
-			CanyonBunnyMain.class.getName();
+		CanyonBunnyMain.class.getName();
 	
 	private WorldController worldController;
 	private WorldRenderer worldRenderer;

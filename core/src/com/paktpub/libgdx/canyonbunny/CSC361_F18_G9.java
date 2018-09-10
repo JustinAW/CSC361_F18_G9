@@ -1,4 +1,4 @@
-package com.packtub.libgdx.canyonbunny;
+package com.paktpub.libgdx.canyonbunny;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;

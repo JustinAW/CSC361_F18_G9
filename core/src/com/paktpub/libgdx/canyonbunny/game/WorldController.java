@@ -1,15 +1,15 @@
-package com.packtub.libgdx.canyonbunny.game;
+package com.paktpub.libgdx.canyonbunny.game;
 
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
+import com.paktpub.libgdx.canyonbunny.util.CameraHelper;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
-import com.packtub.libgdx.canyonbunny.util.CameraHelper;
 
 public class WorldController extends InputAdapter
 {

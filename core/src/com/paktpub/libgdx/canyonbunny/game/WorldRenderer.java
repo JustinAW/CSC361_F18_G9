@@ -1,9 +1,9 @@
-package com.packtub.libgdx.canyonbunny.game;
+package com.paktpub.libgdx.canyonbunny.game;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Disposable;
-import com.packtub.libgdx.canyonbunny.util.Constants;
+import com.paktpub.libgdx.canyonbunny.util.Constants;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class WorldRenderer implements Disposable

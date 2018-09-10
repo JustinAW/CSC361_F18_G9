@@ -2,7 +2,7 @@ package com.mygdx.game.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.packtub.libgdx.canyonbunny.CSC361_F18_G9;
+import com.paktpub.libgdx.canyonbunny.CSC361_F18_G9;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
