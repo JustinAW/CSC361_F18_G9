@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.paktpub.libgdx.canyonbunny;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -29,5 +29,6 @@ public class CSC361_F18_G9 extends ApplicationAdapter {
 	public void dispose () {
 		batch.dispose();
 		img.dispose();
+		
 	}
 }
