@@ -26,6 +26,12 @@ public class Assets implements Disposable, AssetErrorListener
 	// singleton: prevent instantiation from other classes
 	private Assets() {}
 	
+	public AssetBunny bunny;
+	public AssetRock rock;
+	public AssetGoldCoin goldCoin;
+	public AssetFeather feather;
+	public AssetLevelDecoration levelDecoration;
+	
 	public void init (AssetManager assetManager)
 	{
 		this.assetManager = assetManager;
@@ -41,6 +47,21 @@ public class Assets implements Disposable, AssetErrorListener
 			Gdx.app.debug(TAG,  "asset: " + a);
 		}
 	}
+	
+	TextureAtlas atlas = assetManager.get(Constants.TEXTURE_ATLAS_OBJECTS);
+	
+	// enable texture filtering for pixel smoothing
+	for (Texture t : atlas.getTextures())
+	{
+		t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+	}
+	
+	// create game resource objects
+	bunny = new AssetBunny(atlas);
+	rock = new AssetRock(atlas);
+	goldCoin = new AssetGoldCoin(atlas);
+	feather = new AssetFeather(atlas);
+	levelDecoration = new AssetLevelDecoration(atlas);
 	
 	public class AssetBunny
 	{
@@ -105,7 +126,7 @@ public class Assets implements Disposable, AssetErrorListener
 	}
 	
 	@Override
-	public void dispose()
+	public void dispose ()
 	{
 		assetManager.dispose();
 	}
@@ -117,7 +138,7 @@ public class Assets implements Disposable, AssetErrorListener
 	}
 	
 	@Override
-	public void error(AssetDescriptor asset, Throwable throwable)
+	public void error (AssetDescriptor asset, Throwable throwable)
 	{
 		Gdx.app.error(TAG,  "Couldn't load asset '" + asset.fileName + "'", (Exception)throwable);
 	}
