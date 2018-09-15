@@ -40,6 +40,16 @@ public class Assets implements Disposable, AssetErrorListener
 		}
 	}
 	
+	public class AssetBunny
+	{
+		public final AtlasRegion head;
+		
+		public AssetBunny (TextureAtlas atlas)
+		{
+			head = atlas.findRegion("bunny_head");
+		}
+	}
+	
 	@Override
 	public void dispose()
 	{
