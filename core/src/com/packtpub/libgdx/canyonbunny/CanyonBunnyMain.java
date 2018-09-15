@@ -1,11 +1,11 @@
-package com.paktpub.libgdx.canyonbunny;
+package com.packtpub.libgdx.canyonbunny;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.paktpub.libgdx.canyonbunny.game.WorldController;
-import com.paktpub.libgdx.canyonbunny.game.WorldRenderer;
+import com.packtpub.libgdx.canyonbunny.game.WorldController;
+import com.packtpub.libgdx.canyonbunny.game.WorldRenderer;
 
 public class CanyonBunnyMain implements ApplicationListener
 {
