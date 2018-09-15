@@ -1,5 +1,8 @@
-package com.paktpub.libgdx.canyonbunny.util;
+package com.packtpub.libgdx.canyonbunny.util;
 
+/**
+ * @author Justin Study Ch.4 9/17/18
+ */
 public class Constants
 {
     //Visible  game  world  is  5  meters  wide
@@ -7,4 +10,7 @@ public class Constants
 	
 	//Visible  game  world  is  5  meters  tall
 	public  static  final  float  VIEWPORT_HEIGHT  =  5.0f;
+	
+	//Location of description file for texture atlas
+	public static final String TEXTURE_ATLAS_OBJECTS = "images/canyonbunny.pack";
 }

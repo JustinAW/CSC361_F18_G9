@@ -1,11 +1,11 @@
-package com.paktpub.libgdx.canyonbunny.game;
+package com.packtpub.libgdx.canyonbunny.game;
 
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
-import com.paktpub.libgdx.canyonbunny.util.CameraHelper;
+import com.packtpub.libgdx.canyonbunny.util.CameraHelper;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Input.Keys;
