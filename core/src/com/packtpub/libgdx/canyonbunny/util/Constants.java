@@ -1,4 +1,4 @@
-package com.paktpub.libgdx.canyonbunny.util;
+package com.packtpub.libgdx.canyonbunny.util;
 
 public class Constants
 {
