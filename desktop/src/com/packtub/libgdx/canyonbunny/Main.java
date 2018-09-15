@@ -3,9 +3,9 @@ package com.packtub.libgdx.canyonbunny;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.paktpub.libgdx.canyonbunny.CanyonBunnyMain;
 import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 import com.badlogic.gdx.tools.texturepacker.TexturePacker.Settings;
+import com.packtpub.libgdx.canyonbunny.CanyonBunnyMain;
 
 /**
  * Launches the game on desktop
