@@ -130,7 +130,6 @@ public class Assets implements Disposable, AssetErrorListener
 		assetManager.dispose();
 	}
 	
-	@Override
 	public void error (String filename, Class type, Throwable throwable)
 	{
 		Gdx.app.error(TAG,  "Couldn't load asset '" + filename + "'", (Exception)throwable);
