@@ -1,4 +1,4 @@
-package com.packtub.libgdx.canyonbunny;
+package com.packtpub.libgdx.canyonbunny;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
