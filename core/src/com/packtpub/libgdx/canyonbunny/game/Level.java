@@ -145,6 +145,22 @@ public class Level
 		pixmap.dispose();
 		Gdx.app.debug(TAG,  "level '" + filename + "' loaded");
 	}
-	public void render (SpriteBatch batch) {}
+	public void render (SpriteBatch batch) 
+	{
+		// Draw Mountains
+		mountains.render(batch);;
+		
+		// Draw Rocks
+		for (Rock rock : rocks)
+		{
+			rock.render(batch);
+		}
+		
+		// Draw Water Overlay
+		waterOverlay.render(batch);
+		
+		// Draw Clouds
+		clouds.render(batch);
+	}
 }
 
