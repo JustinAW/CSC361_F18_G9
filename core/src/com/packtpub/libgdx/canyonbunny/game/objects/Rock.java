@@ -1,3 +1,9 @@
+/*
+ * Class that determines the size of Rocks
+ * 
+ * @author Justin Weigle 16-Sept-18
+ */
+
 package com.packtpub.libgdx.canyonbunny.game.objects;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -75,29 +81,4 @@ public class Rock extends AbstractGameObject
 				scale.y, rotation, reg.getRegionX(), reg.getRegionY(), 
 				reg.getRegionWidth(), reg.getRegionHeight(), true, false);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
