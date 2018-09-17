@@ -71,7 +71,7 @@ public class Level
 		int lastPixel = -1;
 		for (int pixelY = 0; pixelY < pixmap.getHeight(); pixelY++)
 		{
-			for (int pixelX = 0, pixelX < pixmap.getWidth(); pixelX++)
+			for (int pixelX = 0; pixelX < pixmap.getWidth(); pixelX++)
 			{
 				AbstractGameObject obj = null;
 				float offsetHeight = 0;
