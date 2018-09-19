@@ -13,7 +13,7 @@ import com.packtpub.libgdx.canyonbunny.CanyonBunnyMain;
  */
 public class Main 
 {
-	private static boolean rebuildAtlas = true;
+	private static boolean rebuildAtlas = false;
 	private static boolean drawDebugOutline = true;
 	
 	public static void main (String[] args) 
@@ -26,7 +26,7 @@ public class Main
 			settings.maxHeight = 1024;
 			settings.duplicatePadding = false;
 			settings.debug = drawDebugOutline;
-			TexturePacker.process(settings, "assets-raw/images", "../CanyonBunny-android/assets/images",
+			TexturePacker.process(settings, "assets-raw/images", "../core/assets/images",
 					"canyonbunny.pack");
 		}
 		
