@@ -21,15 +21,13 @@ public abstract class AbstractGameObject
 	public Vector2 scale;
 	public float rotation;
 	
+	//physics variables for object
 	public Vector2 velocity;
 	public Vector2 terminalVelocity;
 	public Vector2 friction;
-	
 	public Vector2 acceleration;
 	public Rectangle bounds;
 	
-	
-
 	//creates a new object and places it in the screen
 	public AbstractGameObject() 
 	{
