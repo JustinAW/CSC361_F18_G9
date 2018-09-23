@@ -60,11 +60,18 @@ public class WorldRenderer implements Disposable
 		//draw collected gold coins icon + text to top left edge
 		renderGuiScore(batch);
 		
+		//draw collected feather icon anchored to top left edge
+		renderGuiFeatherPowerup(batch);
+		
 		//draw extra lives icon + text on top right
 		renderGuiExtraLive(batch);
 		
 		//draw FPS text on bottom right
 		renderGuiFpsCounter(batch);
+		
+		//draw game over text
+		renderGuiGameOverMessage(batch);
+		
 		batch.end();
 	}
 	
