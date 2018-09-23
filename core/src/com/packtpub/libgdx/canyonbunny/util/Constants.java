@@ -4,6 +4,9 @@ package com.packtpub.libgdx.canyonbunny.util;
  * @author Justin Study Ch.4 9/17/18
  * Justin Study ch 5 9/17/18
  * Justin Study ch 6
+ * 
+ * @edits
+ * 		Justin Weigle 23-Sept-18
  */
 public class Constants
 {
