@@ -3,6 +3,7 @@ package com.packtpub.libgdx.canyonbunny.util;
 /**
  * @author Justin Study Ch.4 9/17/18
  * Justin Study ch 5 9/17/18
+ * Justin Study ch 6
  */
 public class Constants
 {
@@ -26,4 +27,7 @@ public class Constants
 	
 	//duration of powerup in seconds
 	public static final float ITEM_FEATHER_POWERUP_DURATION = 9;
+	
+	//delay after game over to post message and restart gaem
+	public static final float TIME_DELAY_GAME_OVER = 3;
 }
