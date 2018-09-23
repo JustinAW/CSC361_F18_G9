@@ -2,6 +2,8 @@
  * Class that determines the size of Rocks
  * 
  * @author Justin Weigle 16-Sept-18
+ * @edits
+ * 		Justin Weigle 23-Sept-18
  */
 
 package com.packtpub.libgdx.canyonbunny.game.objects;
@@ -36,6 +38,8 @@ public class Rock extends AbstractGameObject
 	public void setLength (int length)
 	{
 		this.length = length;
+		// update bounding box for collision detection
+		bounds.set(0, 0, dimension.x * length, dimension.y);
 	}
 	
 	public void increaseLength (int amount)

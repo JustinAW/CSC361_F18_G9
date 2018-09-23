@@ -3,7 +3,7 @@
  * to collect it. If collected it will turn invisible for the
  * rest of the game and award the player 100 points.
  * 
- * @author Justin Weigle
+ * @author Justin Weigle 23-Sept-18
  */
 
 package com.packtpub.libgdx.canyonbunny.game.objects;
