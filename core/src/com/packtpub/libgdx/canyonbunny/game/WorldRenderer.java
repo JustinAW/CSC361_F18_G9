@@ -119,6 +119,48 @@ public class WorldRenderer implements Disposable
 		fpsFont.setColor(1,1,1,1); //white
 	}
 	
+	//adds game over text and feather icon to the game
+	private void renderGuiGameOverMessage(SpriteBatch batch)
+	{
+		//calculates center of gui camera viewport. 
+		float x = cameraGUI.viewportWidth/2;
+		float y = cameraGUI.viewportHeight/2;
+		if(worldController.isGameOver())
+		{
+			BitmapFont fontGameOver = Assets.instance.fonts.defaultBig;
+			//used to draw font
+			fontGameOver.draw(batch, "GAME OVER", x, y);
+			//change color
+			fontGameOver.setColor(1,1,1,1);
+		}
+	}
+	
+	//draws feather power up. checks if time is still left on power up. if so, draw feather
+	//in upper left corner. small number with time left is drawn next to it. blinks if 
+	//less than 4 seconds left
+	private void renderGuiFeatherPowerup (SpriteBatch batch)
+	{
+		float x = -15;
+		float y = 30; 
+		float timeLeftFeatherPowerup = worldController.level.bunnyHead.timeLeftFeatherPowerup;
+		
+		if(timeLeftFeatherPowerup > 0)
+		{
+			//start icon fade in/out if time less than 4 seconds. 5 changes per second
+			if(timeLeftFeatherPowerup < 4)
+			{
+				if((((int)timeLeftFeatherPowerup * 5) % 2) != 0)
+				{
+					batch.setColor(1, 1, 1, 0.5f);
+				}
+			}
+			batch.draw(Assets.instance.feather.feather, x, y, 50, 50, 100, 100,
+											0.35f, 0.35f, 0);
+			batch.setColor(1,1,1,1);
+			Assets.instance.fonts.defaultSmall.draw(batch, ""+ (int)timeLeftFeatherPowerup, x+60, y+57);
+		}
+	}
+	
 	public void resize(int width, int height) 
 	{
 		camera.viewportWidth = (Constants.VIEWPORT_HEIGHT/height) * width;
