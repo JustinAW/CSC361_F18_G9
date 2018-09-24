@@ -2,6 +2,8 @@
  * Handles input from user to control the game world
  * 
  * @author Justin Weigle 16-Sept-18
+ * @edits
+ * 		Justin Weigle 23-Sept-18
  */
 
 package com.packtpub.libgdx.canyonbunny.game;
@@ -11,6 +13,7 @@ import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Input.Keys;
@@ -20,6 +23,10 @@ import com.badlogic.gdx.utils.Array;
 import com.packtpub.libgdx.canyonbunny.util.CameraHelper;
 import com.packtpub.libgdx.canyonbunny.util.Constants;
 import com.packtpub.libgdx.canyonbunny.game.objects.Rock;
+import com.packtpub.libgdx.canyonbunny.game.objects.BunnyHead;
+import com.packtpub.libgdx.canyonbunny.game.objects.BunnyHead.JUMP_STATE;
+import com.packtpub.libgdx.canyonbunny.game.objects.Feather;
+import com.packtpub.libgdx.canyonbunny.game.objects.GoldCoin;
 
 public class WorldController extends InputAdapter
 {
@@ -69,6 +76,7 @@ public class WorldController extends InputAdapter
 	public void update (float deltaTime)
 	{
 		handleDebugInput(deltaTime);
+		level.update(deltaTime);
 		cameraHelper.update(deltaTime);
 	}
 	
@@ -100,6 +108,52 @@ public class WorldController extends InputAdapter
 		x += cameraHelper.getPosition().x;
 		y += cameraHelper.getPosition().y;
 		cameraHelper.setPosition(x,  y);
+	}
+	
+	// Rectangles for collision detection
+	private Rectangle r1 = new Rectangle();
+	private Rectangle r2 = new Rectangle();
+	
+	private void onCollisionBunnyHeadWithRock(Rock rock) {};
+	private void onCollisionBunnyWithGoldCoin(GoldCoin goldCoin) {};
+	private void onCollisionBunnyWithFeather(Feather feather) {};
+	
+	private void testCollisions ()
+	{
+		r1.set(level.bunnyHead.position.x, level.bunnyHead.position.y,
+				level.bunnyHead.bounds.width, level.bunnyHead.bounds.height);
+		
+		// Test collision: Bunny Head <-> Rocks
+		for (Rock rock : level.rocks)
+		{
+			r2.set(rock.position.x, rock.position.y,
+					rock.bounds.width, rock.bounds.height);
+			if (!r1.overlaps(r2)) continue;
+			onCollisionBunnyHeadWithRock(rock);
+			// IMPORTANT: must do all collisions for valid edge testing on rocks
+		}
+		
+		// Test collision: Bunny Head <-> Gold Coins
+		for (GoldCoin goldcoin : level.goldcoins)
+		{
+			if (goldcoin.collected) continue;
+			r2.set(goldcoin.position.x, goldcoin.position.y,
+					goldcoin.bounds.width, goldcoin.bounds.height);
+			if (!r1.overlaps(r2)) continue;
+			onCollisionBunnyWithGoldCoin(goldcoin);
+			break;
+		}
+		
+		// Test collision: Bunny Head <-> Feather
+		for (Feather feather : level.feathers)
+		{
+			if (feather.collected) continue;
+			r2.set(feather.position.x, feather.position.y,
+					feather.bounds.width, feather.bounds.height);
+			if (!r1.overlaps(r2)) continue;
+			onCollisionBunnyWithFeather(feather);
+			break;
+		}
 	}
 	
 	@Override
