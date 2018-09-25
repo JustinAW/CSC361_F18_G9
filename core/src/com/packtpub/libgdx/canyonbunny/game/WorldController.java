@@ -78,6 +78,7 @@ public class WorldController extends InputAdapter
 	{
 		handleDebugInput(deltaTime);
 		level.update(deltaTime);
+		testCollisions();
 		cameraHelper.update(deltaTime);
 	}
 	
@@ -141,7 +142,7 @@ public class WorldController extends InputAdapter
 		case JUMP_FALLING:
 			bunnyHead.position.y = rock.position.y +
 			bunnyHead.bounds.height + bunnyHead.origin.y;
-			bunnyHead.jumpState = JUMP_STATE_GROUNDED;
+			bunnyHead.jumpState = JUMP_STATE.GROUNDED;
 			break;
 		case JUMP_RISING:
 			bunnyHead.position.y = rock.position.y +
@@ -149,8 +150,19 @@ public class WorldController extends InputAdapter
 			break;
 		}
 	}
-	private void onCollisionBunnyWithGoldCoin(GoldCoin goldCoin) {};
-	private void onCollisionBunnyWithFeather(Feather feather) {};
+	private void onCollisionBunnyWithGoldCoin(GoldCoin goldCoin) 
+	{
+		goldCoin.collected = true;
+		score += goldCoin.getScore();
+		Gdx.app.log(TAG,  "Gold coin collected");		
+	}
+	private void onCollisionBunnyWithFeather(Feather feather) 
+	{
+		feather.collected = true;
+		score += feather.getScore();
+		level.bunnyHead.setFeatherPowerup(true);
+		Gdx.app.log(TAG, "Feather collected");
+	}
 	
 	private void testCollisions ()
 	{
