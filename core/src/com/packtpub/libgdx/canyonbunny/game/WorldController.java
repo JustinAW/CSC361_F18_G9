@@ -45,6 +45,7 @@ public class WorldController extends InputAdapter
 		Gdx.input.setInputProcessor(this);
 		cameraHelper = new CameraHelper();
 		lives = Constants.LIVES_START;
+		timeLeftGameOverDelay = 0;
 		initLevel();
 	}
 	
@@ -78,10 +79,26 @@ public class WorldController extends InputAdapter
 	public void update (float deltaTime)
 	{
 		handleDebugInput(deltaTime);
-		handleInputGame(deltaTime);
+		if (isGameOver())
+		{
+			timeLeftGameOverDelay -= deltaTime;
+			if (timeLeftGameOverDelay < 0) init();
+		} else {
+			handleInputGame(deltaTime);
+		}
 		level.update(deltaTime);
 		testCollisions();
 		cameraHelper.update(deltaTime);
+		if (!isGameOver() && isPlayerInWater())
+		{
+			lives--;
+		}
+		if (isGameOver())
+		{
+			timeLeftGameOverDelay = Constants.TIME_DELAY_GAME_OVER;
+		} else {
+			initLevel();
+		}
 	}
 	
 	private void handleDebugInput (float deltaTime)
@@ -145,6 +162,18 @@ public class WorldController extends InputAdapter
 				level.bunnyHead.setJumping(false);
 			}
 		}
+	}
+	
+	private float timeLeftGameOverDelay;
+	
+	public boolean isGameOver ()
+	{
+		return lives < 0;
+	}
+	
+	public boolean isPlayerInWater ()
+	{
+		return level.bunnyHead.position.y < -5;
 	}
 	
 	private void onCollisionBunnyHeadWithRock(Rock rock) 
