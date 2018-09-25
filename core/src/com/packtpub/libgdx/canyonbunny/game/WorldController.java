@@ -4,6 +4,7 @@
  * @author Justin Weigle 16-Sept-18
  * @edits
  * 		Justin Weigle 23-Sept-18
+ *		Justin Weigle 25-Sept-18
  */
 
 package com.packtpub.libgdx.canyonbunny.game;
@@ -114,7 +115,40 @@ public class WorldController extends InputAdapter
 	private Rectangle r1 = new Rectangle();
 	private Rectangle r2 = new Rectangle();
 	
-	private void onCollisionBunnyHeadWithRock(Rock rock) {};
+	private void onCollisionBunnyHeadWithRock(Rock rock) 
+	{
+		BunnyHead bunnyHead = level.bunnyHead;
+		float heightDifference = Math.abs(bunnyHead.position.y 
+				- (rock.position.y + rock.bounds.height));
+		if (heightDifference > 0.25f)
+		{
+			boolean hitRightEdge = bunnyHead.position.x >
+			(rock.position.x + rock.bounds.width / 2.0f);
+			if(hitRightEdge)
+			{
+				bunnyHead.position.x = rock.position.x + rock.bounds.width;
+			} else {
+				bunnyHead.position.x = rock.position.x - bunnyHead.bounds.width;
+			}
+			return;
+		}
+		
+		switch (bunnyHead.jumpState)
+		{
+		case GROUNDED:
+			break;
+		case FALLING:
+		case JUMP_FALLING:
+			bunnyHead.position.y = rock.position.y +
+			bunnyHead.bounds.height + bunnyHead.origin.y;
+			bunnyHead.jumpState = JUMP_STATE_GROUNDED;
+			break;
+		case JUMP_RISING:
+			bunnyHead.position.y = rock.position.y +
+			bunnyHead.bounds.height + bunnyHead.origin.y;
+			break;
+		}
+	}
 	private void onCollisionBunnyWithGoldCoin(GoldCoin goldCoin) {};
 	private void onCollisionBunnyWithFeather(Feather feather) {};
 	
