@@ -43,7 +43,7 @@ public class BunnyHead extends AbstractGameObject
     	//set physics value
     	terminalVelocity.set(3.0f, 4.0f);
     	friction.set(12.0f, 0.0f);
-    	acceleration.set(3.0f, 4.0f);
+    	acceleration.set(0.0f, -25.0f);
     	//View direction
     	viewDirection = VIEW_DIRECTION.RIGHT;
     	//jumpState
