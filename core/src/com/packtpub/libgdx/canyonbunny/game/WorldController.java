@@ -92,12 +92,15 @@ public class WorldController extends InputAdapter
 		if (!isGameOver() && isPlayerInWater())
 		{
 			lives--;
-		}
-		if (isGameOver())
-		{
-			timeLeftGameOverDelay = Constants.TIME_DELAY_GAME_OVER;
-		} else {
-			initLevel();
+		
+		    if (isGameOver())
+		    {
+			    timeLeftGameOverDelay = Constants.TIME_DELAY_GAME_OVER;
+		    } 
+		    else 
+		    {
+			    initLevel();
+		    }
 		}
 	}
 	
