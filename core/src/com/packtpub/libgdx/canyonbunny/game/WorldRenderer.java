@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 /**
  * Draws the game
  * @author Justin Study ch 5 9/17/18
+ * 		   Justin Study ch 6
  */
 public class WorldRenderer implements Disposable
 {
@@ -18,12 +19,14 @@ public class WorldRenderer implements Disposable
 	private SpriteBatch batch;
 	private WorldController worldController;
 	
+	//initializes an instance of worldrenderer
 	public WorldRenderer (WorldController worldController) 
 	{
 		this.worldController = worldController;
 		init();
 	}
 	
+	//sets up cameras to view the game world
 	private void init() 
 	{
 		batch = new SpriteBatch();
@@ -37,13 +40,14 @@ public class WorldRenderer implements Disposable
 		cameraGUI.setToOrtho(true); //flip y-axis
 		cameraGUI.update();
 	}
-	
+	//calls method that draws on screen
 	public void render() 
 	{
 		renderWorld(batch);
 		renderGui(batch);
 	}
 	
+	//render world and objects within the world
 	private void renderWorld(SpriteBatch batch)
 	{
 		worldController.cameraHelper.applyTo(camera);
@@ -53,6 +57,7 @@ public class WorldRenderer implements Disposable
 		batch.end();
 	}
 	
+	//renders gui and calls other methods that render specific parts of the gui like fps counter and coin amount
 	private void renderGui(SpriteBatch batch)
 	{
 		batch.setProjectionMatrix(cameraGUI.combined);
@@ -148,7 +153,7 @@ public class WorldRenderer implements Disposable
 	private void renderGuiFeatherPowerup (SpriteBatch batch)
 	{
 		float x = -15;
-		float y = 30; 
+		float y = 30;
 		float timeLeftFeatherPowerup = worldController.level.bunnyHead.timeLeftFeatherPowerup;
 		
 		if(timeLeftFeatherPowerup > 0)
@@ -168,6 +173,7 @@ public class WorldRenderer implements Disposable
 		}
 	}
 	
+	//handles resizing of the game window
 	public void resize(int width, int height) 
 	{
 		camera.viewportWidth = (Constants.VIEWPORT_HEIGHT/height) * width;
@@ -180,6 +186,7 @@ public class WorldRenderer implements Disposable
 		cameraGUI.update();
 	}
 	
+	//clears unused memory
 	@Override public void dispose() 
 	{
 		batch.dispose();
