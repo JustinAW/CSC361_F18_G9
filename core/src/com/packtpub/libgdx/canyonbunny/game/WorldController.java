@@ -5,6 +5,8 @@
  * @edits
  * 		Justin Weigle 23-Sept-18
  *		Justin Weigle 25-Sept-18
+ *@edits Justin Study ch. 7
+ *changes to utilize screens
  */
 
 package com.packtpub.libgdx.canyonbunny.game;
@@ -28,17 +30,23 @@ import com.packtpub.libgdx.canyonbunny.game.objects.BunnyHead;
 import com.packtpub.libgdx.canyonbunny.game.objects.BunnyHead.JUMP_STATE;
 import com.packtpub.libgdx.canyonbunny.game.objects.Feather;
 import com.packtpub.libgdx.canyonbunny.game.objects.GoldCoin;
+import com.badlogic.gdx.Game;
+import com.packtpub.libgdx.canyonbunny.screens.MenuScreen;
 
 public class WorldController extends InputAdapter
 {
+	//allows us to save a reference to game instance. enables us to switch to 
+	//another screen. 
+	private Game game;
 	private static final String TAG = WorldController.class.getName();
+	public CameraHelper cameraHelper;
 	
-	public WorldController ()
+	//constructs game instance and stores game variable
+	public WorldController (Game game)
 	{
+		this.game = game;
 		init();
 	}
-	
-	public CameraHelper cameraHelper;
 	
 	private void init ()
 	{
@@ -82,7 +90,9 @@ public class WorldController extends InputAdapter
 		if (isGameOver())
 		{
 			timeLeftGameOverDelay -= deltaTime;
-			if (timeLeftGameOverDelay < 0) init();
+			//replaced init with back to menu method to return to menu
+			//instead of creating new game world
+			if (timeLeftGameOverDelay < 0) backToMenu();
 		} else {
 			handleInputGame(deltaTime);
 		}
@@ -284,6 +294,21 @@ public class WorldController extends InputAdapter
 			cameraHelper.setTarget(cameraHelper.hasTarget() ? null: level.bunnyHead);
 			Gdx.app.debug(TAG, "Camera follow enabled: " + cameraHelper.hasTarget());
 		}
+		//back to menu
+		//goes back to menu if back is pressed on android or escape is pressed on PC
+		else if(keycode == Keys.ESCAPE || keycode == Keys.BACK)
+		{
+			backToMenu();
+		}
 		return false;
 	}
+	
+	//new method to implement screens
+	//will switch to menu screen when called.
+	private void backToMenu()
+	{
+		//switch to menu screen
+		game.setScreen(new MenuScreen(game));
+	}
+	
 }
