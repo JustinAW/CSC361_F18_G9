@@ -3,6 +3,10 @@ package com.packtpub.libgdx.canyonbunny.util;
 /**
  * @author Justin Study Ch.4 9/17/18
  * Justin Study ch 5 9/17/18
+ * Justin Study ch 6
+ * 
+ * @edits
+ * 		Justin Weigle 23-Sept-18
  */
 public class Constants
 {
@@ -18,9 +22,16 @@ public class Constants
 	
 	//Location of description file for texture atlas
 	public static final String TEXTURE_ATLAS_OBJECTS = "images/canyonbunny.pack.atlas";
+	
 	// Location of image file for level 01
 	public static final String LEVEL_01 = "levels/level-01.png";
 	
 	//Amount of extra lives at level start
 	public static final int LIVES_START = 3; 
+	
+	//duration of feather power-up in seconds
+	public static final float ITEM_FEATHER_POWERUP_DURATION = 9;
+	
+	//delay after game over to post message and restart gaem
+	public static final float TIME_DELAY_GAME_OVER = 3;
 }

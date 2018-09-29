@@ -5,6 +5,10 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.packtpub.libgdx.canyonbunny.game.objects.AbstractGameObject;
 
+/**
+ * @author Justin Study ch 6
+ *
+ */
 public class CameraHelper
 {
 	private static final String TAG = CameraHelper.class.getName();
@@ -28,6 +32,9 @@ public class CameraHelper
 		
 		position.x = target.position.x + target.origin.x;
 		position.y = target.position.y + target.origin.y;
+		
+		//Prevent camera from moving down too far
+		position.y = Math.max(-1f, position.y);
 	}
 	
 	public void setPosition (float x, float y)

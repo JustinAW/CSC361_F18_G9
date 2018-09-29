@@ -3,6 +3,7 @@ package com.packtpub.libgdx.canyonbunny.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
 import com.packtpub.libgdx.canyonbunny.util.Constants;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 /**
  * Draws the game
  * @author Justin Study ch 5 9/17/18
+ * 		   Justin Study ch 6
  */
 public class WorldRenderer implements Disposable
 {
@@ -18,12 +20,14 @@ public class WorldRenderer implements Disposable
 	private SpriteBatch batch;
 	private WorldController worldController;
 	
+	//initializes an instance of worldrenderer
 	public WorldRenderer (WorldController worldController) 
 	{
 		this.worldController = worldController;
 		init();
 	}
 	
+	//sets up cameras to view the game world
 	private void init() 
 	{
 		batch = new SpriteBatch();
@@ -37,13 +41,14 @@ public class WorldRenderer implements Disposable
 		cameraGUI.setToOrtho(true); //flip y-axis
 		cameraGUI.update();
 	}
-	
+	//calls method that draws on screen
 	public void render() 
 	{
 		renderWorld(batch);
 		renderGui(batch);
 	}
 	
+	//render world and objects within the world
 	private void renderWorld(SpriteBatch batch)
 	{
 		worldController.cameraHelper.applyTo(camera);
@@ -53,6 +58,7 @@ public class WorldRenderer implements Disposable
 		batch.end();
 	}
 	
+	//renders gui and calls other methods that render specific parts of the gui like fps counter and coin amount
 	private void renderGui(SpriteBatch batch)
 	{
 		batch.setProjectionMatrix(cameraGUI.combined);
@@ -60,11 +66,18 @@ public class WorldRenderer implements Disposable
 		//draw collected gold coins icon + text to top left edge
 		renderGuiScore(batch);
 		
+		//draw collected feather icon anchored to top left edge
+		renderGuiFeatherPowerup(batch);
+		
 		//draw extra lives icon + text on top right
 		renderGuiExtraLive(batch);
 		
 		//draw FPS text on bottom right
 		renderGuiFpsCounter(batch);
+		
+		//draw game over text
+		renderGuiGameOverMessage(batch);
+		
 		batch.end();
 	}
 	
@@ -119,6 +132,49 @@ public class WorldRenderer implements Disposable
 		fpsFont.setColor(1,1,1,1); //white
 	}
 	
+	//adds game over text and feather icon to the game
+	private void renderGuiGameOverMessage(SpriteBatch batch)
+	{
+		//calculates center of gui camera viewport. 
+		float x = cameraGUI.viewportWidth/2;
+		float y = cameraGUI.viewportHeight/2;
+		if(worldController.isGameOver())
+		{
+			BitmapFont fontGameOver = Assets.instance.fonts.defaultBig;
+			//used to draw font
+			fontGameOver.draw(batch, "GAME OVER", x, y, 1, Align.center, false);
+			//change color
+			fontGameOver.setColor(1,1,1,1);
+		}
+	}
+	
+	//draws feather power up. checks if time is still left on power up. if so, draw feather
+	//in upper left corner. small number with time left is drawn next to it. blinks if 
+	//less than 4 seconds left
+	private void renderGuiFeatherPowerup (SpriteBatch batch)
+	{
+		float x = -15;
+		float y = 30;
+		float timeLeftFeatherPowerup = worldController.level.bunnyHead.timeLeftFeatherPowerup;
+		
+		if(timeLeftFeatherPowerup > 0)
+		{
+			//start icon fade in/out if time less than 4 seconds. 5 changes per second
+			if(timeLeftFeatherPowerup < 4)
+			{
+				if((((int)timeLeftFeatherPowerup * 5) % 2) != 0)
+				{
+					batch.setColor(1, 1, 1, 0.5f);
+				}
+			}
+			batch.draw(Assets.instance.feather.feather, x, y, 50, 50, 100, 100,
+											0.35f, 0.35f, 0);
+			batch.setColor(1,1,1,1);
+			Assets.instance.fonts.defaultSmall.draw(batch, ""+ (int)timeLeftFeatherPowerup, x+60, y+57);
+		}
+	}
+	
+	//handles resizing of the game window
 	public void resize(int width, int height) 
 	{
 		camera.viewportWidth = (Constants.VIEWPORT_HEIGHT/height) * width;
@@ -131,6 +187,7 @@ public class WorldRenderer implements Disposable
 		cameraGUI.update();
 	}
 	
+	//clears unused memory
 	@Override public void dispose() 
 	{
 		batch.dispose();
