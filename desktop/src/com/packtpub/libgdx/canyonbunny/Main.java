@@ -10,7 +10,6 @@ import com.packtpub.libgdx.canyonbunny.CanyonBunnyMain;
 /**
  * Launches the game on desktop
  * @author Justin Study Chap 4 9/17/18
- * @edit Justin Study ch.7
  */
 public class Main 
 {
@@ -25,11 +24,10 @@ public class Main
 			Settings settings = new Settings();
 			settings.maxWidth = 1024;
 			settings.maxHeight = 1024;
+			settings.duplicatePadding = false;
 			settings.debug = drawDebugOutline;
 			TexturePacker.process(settings, "assets-raw/images", "../core/assets/images",
 					"canyonbunny.pack");
-			TexturePacker.process(settings, "assets-raw/images-ui", "../core/assets/images", 
-					"canyonbunny-ui.pack");
 		}
 		
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
