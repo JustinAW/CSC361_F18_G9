@@ -29,6 +29,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.packtpub.libgdx.canyonbunny.game.Assets;
 import com.packtpub.libgdx.canyonbunny.util.CharacterSkin;
+import com.packtpub.libgdx.canyonbunny.util.GamePreferences;
 import com.packtpub.libgdx.canyonbunny.util.Constants;
 
 public class MenuScreen extends AbstractGameScreen
@@ -42,6 +43,7 @@ public class MenuScreen extends AbstractGameScreen
 	
 	private Stage stage;
 	private Skin skinCanyonBunny;
+	private Skin skinLibgdx;
 	
 	// menu
 	private Image imgBackground;
@@ -69,9 +71,13 @@ public class MenuScreen extends AbstractGameScreen
 	private boolean debugEnabled = false;
 	private float debugRebuildStage;
 	
+	// builds everything that makes up the final scene of the menu screen
 	private void rebuildStage ()
 	{
 		skinCanyonBunny = new Skin(
+				Gdx.files.internal(Constants.SKIN_CANYONBUNNY_UI),
+				new TextureAtlas(Constants.TEXTURE_ATLAS_UI));
+		skinLibgdx = new Skin(
 				Gdx.files.internal(Constants.SKIN_CANYONBUNNY_UI),
 				new TextureAtlas(Constants.TEXTURE_ATLAS_UI));
 		
@@ -92,6 +98,57 @@ public class MenuScreen extends AbstractGameScreen
 		stack.add(layerLogos);
 		stack.add(layerControls);
 		stage.addActor(layerOptionsWindow);
+	}
+	
+	// loads previously set preferences
+	private void loadSettings()
+	{
+		GamePreferences prefs = GamePreferences.instance;
+		prefs.load();
+		chkSound.setChecked(prefs.sound);
+		sldSound.setValue(prefs.volSound);
+		chkMusic.setChecked(prefs.music);
+		sldMusic.setValue(prefs.volMusic);
+		selCharSkn.setSelectedIndex(prefs.charSkin);
+		onCharSkinSelected(prefs.charSkin);
+		chkShowFpsCounter.setChecked(prefs.showFpsCounter);
+	}
+	
+	// saves newly set preferences when save is clicked
+	private void saveSettings()
+	{
+		GamePreferences prefs = GamePreferences.instance;
+		prefs.sound = chkSound.isChecked();
+		prefs.volSound = sldSound.getValue();
+		prefs.music = chkMusic.isChecked();
+		prefs.volMusic = sldMusic.getValue();
+		prefs.charSkin = selCharSkin.getSelectedIndex();
+		prefs.showFpsCounter = chkShowFpsCounter.isChecked();
+		prefs.save();
+	}
+	
+	// sets the character skin to the selected one
+	private void onCharSkinSelected(int index)
+	{
+		CharacterSkin skin = CharacterSkin.values()[index];
+		imgCharSkin.setColor(skin.getColor());
+	}
+	
+	// when save is clicked, it calls saveSettings()
+	private void onSaveClicked()
+	{
+		saveSettings();
+		onCancelClicked();
+	}
+	
+	// when cancel is clicked, it doesn't save the
+	// settings and it displays the Play and Options
+	// buttons again and hides the options menu
+	private void onCancelClicked()
+	{
+		btnMenuPlay.setVisible(true);
+		btnMenuOptions.setVisible(true);
+		winOptions.setVisible(false);
 	}
 
 	// draws background image to scene of the menu screen
@@ -175,11 +232,6 @@ public class MenuScreen extends AbstractGameScreen
 		return layer;
 	}
 	
-	private Table buildOptionsWindowLayer() {
-		Table layer = new Table();
-		return layer;
-	}
-	
 	// switches to game screen
 	private void onPlayClicked ()
 	{
@@ -187,6 +239,38 @@ public class MenuScreen extends AbstractGameScreen
 	}
 	
 	private void onOptionsClicked () {}
+	
+	private Table buildOptionsWindowLayer() {
+		Table layer = new Table();
+		return layer;
+	}
+	
+	// adds checkboxes and sliders for audio options in menu
+	private Table buildOptWinAudioSettings()
+	{
+		Table tbl = new Table();
+		// + Title: "Audio"
+		tbl.pad(10,10,0,10);
+		tbl.add(new Label("Audio", skinLibgdx, "default-font", Color.ORANGE)).colspan(3);
+		tbl.row();
+		tbl.columnDefaults(0).padRight(10);
+		tbl.columnDefaults(1).padRight(10);
+		// + Checkbox, "Sound" label, sound volume slider
+		chkSound = new CheckBox("", skinLibgdx);
+		tbl.add(chkSound);
+		tbl.add(new Label("Sound", skinLibgdx));
+		sldSound = new Slider(0.0f, 1.0f, 0.1f, false, skinLibgdx);
+		tbl.add(sldSound);
+		tbl.row();
+		// + Checkbox, "Music" label, music volume slider
+		chkMusic = new CheckBox("", skinLibgdx);
+		tbl.add(chkMusic);
+		tbl.add(new Label("Music", skinLibgdx));
+		sldMusic = new Slider(0.0f, 1.0f, 0.1f, false, skinLibgdx);
+		tbl.add(sldMusic);
+		tbl.row();
+		return tbl;
+	}
 
 	// calls to update and render the stage and enables calling
 	// rebuildStage() in intervals defined by DEBUG_REBUILD_INTERVAL
@@ -232,6 +316,7 @@ public class MenuScreen extends AbstractGameScreen
 	{
 		stage.dispose();
 		skinCanyonBunny.dispose();
+		skinLibgdx.dispose();
 	}
 	
 	@Override public void pause () {}
