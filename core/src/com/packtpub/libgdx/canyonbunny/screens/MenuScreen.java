@@ -94,21 +94,84 @@ public class MenuScreen extends AbstractGameScreen
 		stage.addActor(layerOptionsWindow);
 	}
 
+	// draws background image to scene of the menu screen
 	private Table buildBackgroundLayer() {
 		Table layer = new Table();
-		return layer;
-	}
-	private Table buildObjectsLayer() {
-		Table layer = new Table();
-		return layer;
-	}
-	private Table buildLogosLayer() {
-		Table layer = new Table();
+		// + Background
+		imgBackground = new Image(skinCanyonBunny, "background");
+		layer.add(imgBackground);
 		return layer;
 	}
 	
+	// image of some coins and bunny head set to explicit
+	// locations defined by setPosition() drawn on top of
+	// the background layer
+	private Table buildObjectsLayer() {
+		Table layer = new Table();
+		// + Coins
+		imgCoins = new Image(skinCanyonBunny, "coins");
+		layer.addActor(imgCoins);
+		imgCoins.setPosition(135, 80);
+		// + Bunny
+		imgBunny = new Image(skinCanyonBunny, "bunny");
+		layer.addActor(imgBunny);
+		imgBunny.setPosition(355, 40);
+		return layer;
+	}
+	
+	// adds logo images to screen (anchored top left)
+	// add() on a table widget will add a new column
+	// row() will add a new row
+	// expandY() will expand empty space in a vertical direction,
+	// which pushes the new image information to the bottom edge
+	// layer.debug() draws debug visuals if debugEnabled = true
+	private Table buildLogosLayer() {
+		Table layer = new Table();
+		layer.left().top();
+		// + Game Logo
+		imgLogo = new Image(skinCanyonBunny, "logo");
+		layer.add(imgLogo);
+		layer.row().expandY();
+		// + Info Logos
+		imgInfo = new Image(skinCanyonBunny, "info");
+		layer.add(imgInfo).bottom();
+		if (debugEnabled) layer.debug();
+		return layer;
+	}
+	
+	// adds control buttons (anchored bottom right)
+	// play button and options button created with
+	// ChangeListeners to define the action to be taken
+	// when a button is pressed
 	private Table buildControlsLayer() {
 		Table layer = new Table();
+		layer.right().bottom();
+		// + Play Button
+		// uses onPlayClicked method to define action
+		btnMenuPlay = new Button(skinCanyonBunny, "play");
+		layer.add(btnMenuPlay);
+		btnMenuPlay.addListener(new ChangeListener()
+		{
+			@Override
+			public void changed (ChangeEvent event, Actor actor)
+			{
+				onPlayClicked();
+			}
+		});
+		layer.row();
+		// + Options Button
+		// uses onOptionsClicked method to define action
+		btnMenuOptions = new Button(skinCanyonBunny, "options");
+		layer.add(btnMenuOptions);
+		btnMenuOptions.addListener(new ChangeListener()
+		{
+			@Override
+			public void changed (ChangeEvent event, Actor actor)
+			{
+				onOptionsClicked();
+			}
+		});
+		if (debugEnabled) layer.debug();
 		return layer;
 	}
 	
@@ -116,6 +179,14 @@ public class MenuScreen extends AbstractGameScreen
 		Table layer = new Table();
 		return layer;
 	}
+	
+	// switches to game screen
+	private void onPlayClicked ()
+	{
+		game.setScreen(new GameScreen(game));
+	}
+	
+	private void onOptionsClicked () {}
 
 	// calls to update and render the stage and enables calling
 	// rebuildStage() in intervals defined by DEBUG_REBUILD_INTERVAL
