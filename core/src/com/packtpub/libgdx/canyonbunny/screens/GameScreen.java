@@ -13,7 +13,7 @@ import com.packtpub.libgdx.canyonbunny.game.WorldRenderer;
 public class GameScreen extends AbstractGameScreen
 {
 	private static final String TAG = GameScreen.class.getName();
-	private WorldController worldControler;
+	private WorldController worldController;
 	private WorldRenderer worldRenderer;
 	
 	private boolean paused;
@@ -67,6 +67,12 @@ public class GameScreen extends AbstractGameScreen
 		super.resume();
 		//Only called on Android
 		paused = false;
+	}
+
+	@Override
+	public void resize(int width, int height) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
