@@ -5,6 +5,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.packtpub.libgdx.canyonbunny.game.WorldController;
 import com.packtpub.libgdx.canyonbunny.game.WorldRenderer;
+import com.packtpub.libgdx.canyonbunny.util.GamePreferences;
+import com.packtpub.libgdx.canyonbunny.util.CharacterSkin;
+import com.packtpub.libgdx.canyonbunny.util.GamePreferences;
+
 
 /**
  * @author Justin Study ch 7
@@ -13,7 +17,7 @@ import com.packtpub.libgdx.canyonbunny.game.WorldRenderer;
 public class GameScreen extends AbstractGameScreen
 {
 	private static final String TAG = GameScreen.class.getName();
-	private WorldController worldControler;
+	private WorldController worldController;
 	private WorldRenderer worldRenderer;
 	
 	private boolean paused;
@@ -43,6 +47,7 @@ public class GameScreen extends AbstractGameScreen
 	@Override
 	public void show()
 	{
+		GamePreferences.instance.load();
 		worldController = new WorldController(game);
 		worldRenderer = new WorldRenderer(worldController);
 		Gdx.input.setCatchBackKey(true);
