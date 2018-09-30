@@ -1,7 +1,7 @@
 package com.packtpub.libgdx.canyonbunny.screens;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.assets.Screen;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.packtpub.libgdx.canyonbunny.game.Assets;
 
@@ -9,11 +9,11 @@ import com.packtpub.libgdx.canyonbunny.game.Assets;
  * @author Justin Study ch 7
  *
  */
-public class AbstractGameScreen implements Screen
+public abstract class AbstractGameScreen implements Screen
 {
 	protected Game game;
 	
-	public AbstractGameScreen(Gane game)
+	public AbstractGameScreen(Game game)
 	{
 		this.game = game;
 	}
