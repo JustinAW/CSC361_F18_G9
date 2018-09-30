@@ -7,6 +7,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
 import com.packtpub.libgdx.canyonbunny.util.Constants;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.packtpub.libgdx.canyonbunny.util.GamePreferences;
 
 /**
  * Draws the game
@@ -72,8 +73,11 @@ public class WorldRenderer implements Disposable
 		//draw extra lives icon + text on top right
 		renderGuiExtraLive(batch);
 		
-		//draw FPS text on bottom right
-		renderGuiFpsCounter(batch);
+		//draw FPS text on bottom right only if box is checked by user.
+		if(GamePreferences.instance.showFpsCounter)
+		{	
+			renderGuiFpsCounter(batch);
+		}
 		
 		//draw game over text
 		renderGuiGameOverMessage(batch);

@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.MathUtils;
 
 /**
  * @author Justin Study ch. 7
- * implemented as singletion
+ * implemented as singleton
  * holds and applies users preferences
  */
 public class GamePreferences
