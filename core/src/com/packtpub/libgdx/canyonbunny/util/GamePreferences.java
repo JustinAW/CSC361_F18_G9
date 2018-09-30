@@ -3,7 +3,6 @@ package com.packtpub.libgdx.canyonbunny.util;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.math.MathUtils;
-improt com.badlogic.gdx.math.MathUtils;
 
 /**
  * @author Justin Study ch. 7
