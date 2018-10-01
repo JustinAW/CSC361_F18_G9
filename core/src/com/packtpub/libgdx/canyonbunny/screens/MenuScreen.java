@@ -78,8 +78,8 @@ public class MenuScreen extends AbstractGameScreen
 				Gdx.files.internal(Constants.SKIN_CANYONBUNNY_UI),
 				new TextureAtlas(Constants.TEXTURE_ATLAS_UI));
 		skinLibgdx = new Skin(
-				Gdx.files.internal(Constants.SKIN_CANYONBUNNY_UI),
-				new TextureAtlas(Constants.TEXTURE_ATLAS_UI));
+				Gdx.files.internal(Constants.SKIN_LIBGDX_UI),
+				new TextureAtlas(Constants.TEXTURE_ATLAS_LIBGDX_UI));
 		
 		// build all layers
 		Table layerBackground = buildBackgroundLayer();
