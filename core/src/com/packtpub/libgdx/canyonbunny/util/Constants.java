@@ -37,7 +37,7 @@ public class Constants
 	public static final float TIME_DELAY_GAME_OVER = 3;
 	
 	//texture atlas for UI location
-	public static final String TEXTURE_ATLAS_UI = "images/canyonbunny-ui.pack";
+	public static final String TEXTURE_ATLAS_UI = "images/canyonbunny-ui.pack.atlas";
 	public static final String TEXTURE_ATLAS_LIBGDX_UI = "images/uiskin.atlas";
 	
 	//location of description file for skins
