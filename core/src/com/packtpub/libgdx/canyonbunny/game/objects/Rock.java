@@ -4,12 +4,15 @@
  * @author Justin Weigle 16-Sept-18
  * @edits
  * 		Justin Weigle 23-Sept-18
+ * 		Justin Weigle 1-Oct-18
  */
 
 package com.packtpub.libgdx.canyonbunny.game.objects;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.packtpub.libgdx.canyonbunny.game.Assets;
 
 public class Rock extends AbstractGameObject 
@@ -19,11 +22,18 @@ public class Rock extends AbstractGameObject
 	
 	private int length;
 	
+	private final float FLOAT_CYCLE_TIME = 2.0f;
+	private final float FLOAT_AMPLITUDE = 0.25f;
+	private float floatCycleTimeLeft;
+	private boolean floatingDownwards;
+	private Vector2 floatTargetPosition;
+	
 	public Rock ()
 	{
 		init();
 	}
 	
+	// initializes rocks as well as the floating mechanism
 	private void init ()
 	{
 		dimension.set(1,1.5f);
@@ -33,8 +43,13 @@ public class Rock extends AbstractGameObject
 		
 		// Start length of this rock
 		setLength(1);
+		
+		floatingDownwards = false;
+		floatCycleTimeLeft = MathUtils.random(0, FLOAT_CYCLE_TIME / 2);
+		floatTargetPosition = null;
 	}
 	
+	// sets the length of each rock
 	public void setLength (int length)
 	{
 		this.length = length;
@@ -84,5 +99,24 @@ public class Rock extends AbstractGameObject
 				dimension.x / 4, dimension.y, scale.x, 
 				scale.y, rotation, reg.getRegionX(), reg.getRegionY(), 
 				reg.getRegionWidth(), reg.getRegionHeight(), true, false);
+	}
+	
+	// gives floating cycle time a random aspect so that
+	// the movement seems more natural
+	@Override
+	public void update (float deltaTime)
+	{
+		super.update(deltaTime);
+		
+		floatCycleTimeLeft -= deltaTime;
+		if (floatTargetPosition == null) floatTargetPosition = new Vector2(position);
+		
+		if (floatCycleTimeLeft <= 0)
+		{
+			floatCycleTimeLeft = FLOAT_CYCLE_TIME;
+			floatingDownwards = !floatingDownwards;
+			floatTargetPosition.y += FLOAT_AMPLITUDE * (floatingDownwards ? -1 : 1);
+		}
+		position.lerp(floatTargetPosition, deltaTime);
 	}
 }
