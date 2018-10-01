@@ -7,6 +7,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
 import com.packtpub.libgdx.canyonbunny.util.Constants;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.packtpub.libgdx.canyonbunny.util.GamePreferences;
 
 /**
  * Draws the game
@@ -72,8 +73,11 @@ public class WorldRenderer implements Disposable
 		//draw extra lives icon + text on top right
 		renderGuiExtraLive(batch);
 		
-		//draw FPS text on bottom right
-		renderGuiFpsCounter(batch);
+		//draw FPS text on bottom right only if box is checked by user.
+		if(GamePreferences.instance.showFpsCounter)
+		{	
+			renderGuiFpsCounter(batch);
+		}
 		
 		//draw game over text
 		renderGuiGameOverMessage(batch);
@@ -122,14 +126,15 @@ public class WorldRenderer implements Disposable
 			//30 or more fps show in yello
 			fpsFont.setColor(1,0,0,1);
 		}
-		else
+		if(fps <30)
 		{
 			//less than 30 shows in red
 			fpsFont.setColor(1,0,0,1);
 		}
 		
 		fpsFont.draw(batch, "FPS: " + fps, x, y);
-		fpsFont.setColor(1,1,1,1); //white
+		fpsFont.setColor(1,1,1,1);
+		
 	}
 	
 	//adds game over text and feather icon to the game
