@@ -1,19 +1,23 @@
+/**
+ * Draws the game
+ * @author Justin Study ch 5 9/17/18
+ * @edits		   
+ * 		Justin Study ch 6
+ * 		Justin Weigle 1-Oct-18
+ */
+
 package com.packtpub.libgdx.canyonbunny.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
 import com.packtpub.libgdx.canyonbunny.util.Constants;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.packtpub.libgdx.canyonbunny.util.GamePreferences;
 
-/**
- * Draws the game
- * @author Justin Study ch 5 9/17/18
- * 		   Justin Study ch 6
- */
 public class WorldRenderer implements Disposable
 {
 	private OrthographicCamera camera;
@@ -106,6 +110,25 @@ public class WorldRenderer implements Disposable
 			
 			batch.draw(Assets.instance.bunny.head, x+i*50, y, 50, 50, 120, 100, 0.35f, -0.35f, 0);
 			batch.setColor(1,1,1,1);
+		}
+		
+		// draws a temporary bunny head icon that changes in alpha
+		// levels, scale, and rotation over time -
+		// controlled by livesVisual
+		if (worldController.lives >= 0 && worldController.livesVisual > worldController.lives)
+		{
+			int i = worldController.lives;
+			float alphaColor = Math.max(0, worldController.livesVisual - worldController.lives - 0.5f);
+			float alphaScale = 0.35f * (2 + worldController.lives - worldController.livesVisual) * 2;
+			float alphaRotate = -45 * alphaColor;
+			batch.setColor(1.0f, 0.7f, 0.7f, alphaColor);
+			batch.draw(Assets.instance.bunny.head, 
+					x + i * 50, y, 
+					50, 50, 
+					120, 100, 
+					alphaScale, -alphaScale, 
+					alphaRotate);
+			batch.setColor(1, 1, 1, 1);
 		}
 	}
 	
