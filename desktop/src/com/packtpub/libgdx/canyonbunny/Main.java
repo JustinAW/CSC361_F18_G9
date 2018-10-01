@@ -13,7 +13,7 @@ import com.packtpub.libgdx.canyonbunny.CanyonBunnyMain;
  */
 public class Main 
 {
-	private static boolean rebuildAtlas = false;
+	private static boolean rebuildAtlas = true;
 	private static boolean drawDebugOutline = true;
 	
 	public static void main (String[] args) 
@@ -24,10 +24,11 @@ public class Main
 			Settings settings = new Settings();
 			settings.maxWidth = 1024;
 			settings.maxHeight = 1024;
-			settings.duplicatePadding = false;
 			settings.debug = drawDebugOutline;
 			TexturePacker.process(settings, "assets-raw/images", "../core/assets/images",
 					"canyonbunny.pack");
+			TexturePacker.process(settings, "assets-raw/images-ui", "../core/assets/images",
+					"canyonbunny-ui.pack");
 		}
 		
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
