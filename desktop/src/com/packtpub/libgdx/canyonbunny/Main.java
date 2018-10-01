@@ -25,8 +25,10 @@ public class Main
 			settings.maxWidth = 1024;
 			settings.maxHeight = 1024;
 			settings.debug = drawDebugOutline;
+			//packs game world images like clouds and bunny head
 			TexturePacker.process(settings, "assets-raw/images", "../core/assets/images",
 					"canyonbunny.pack");
+			//packs ui images
 			TexturePacker.process(settings, "assets-raw/images-ui", "../core/assets/images",
 					"canyonbunny-ui.pack");
 		}

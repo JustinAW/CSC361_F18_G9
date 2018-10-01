@@ -126,14 +126,15 @@ public class WorldRenderer implements Disposable
 			//30 or more fps show in yello
 			fpsFont.setColor(1,0,0,1);
 		}
-		else
+		if(fps <30)
 		{
 			//less than 30 shows in red
 			fpsFont.setColor(1,0,0,1);
 		}
 		
 		fpsFont.draw(batch, "FPS: " + fps, x, y);
-		fpsFont.setColor(1,1,1,1); //white
+		fpsFont.setColor(1,1,1,1);
+		
 	}
 	
 	//adds game over text and feather icon to the game

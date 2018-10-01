@@ -17,6 +17,7 @@ public enum CharacterSkin
 	private String name;
 	private Color color = new Color();
 	
+	//stores character skin name and color once chosen by the user
 	private CharacterSkin(String name, float r, float g, float b)
 	{
 		this.name = name;
