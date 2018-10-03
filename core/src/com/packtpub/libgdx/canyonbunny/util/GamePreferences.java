@@ -1,11 +1,15 @@
+/**
+ * @author Justin Study ch. 7
+ */
+
 package com.packtpub.libgdx.canyonbunny.util;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.math.MathUtils;
 
+
 /**
- * @author Justin Study ch. 7
  * implemented as singleton
  * holds and applies users preferences
  */
@@ -24,14 +28,18 @@ public class GamePreferences
 	
 	private Preferences prefs;
 	
-	//singleton: prevent instantiation from other classes
+	/**
+	 * singleton: prevent instantiation from other classes
+	 */
 	private GamePreferences() 
 	{
 		//settings will be loaded and saved in preferences file
 		prefs = Gdx.app.getPreferences(Constants.PREFERENCES);
 	}
 	
-	//always tries to find suitable and valid value for settings
+	/**
+	 * always tries to find suitable and valid value for settings
+	 */
 	public void load() 
 	{
 		sound = prefs.getBoolean("sound", true);
@@ -42,9 +50,11 @@ public class GamePreferences
 		showFpsCounter = prefs.getBoolean("showFpsCounter", false);
 	}
 	
-	//takes current values of its public variables and puts them into the map of
-	//the preferences file. flush is called on preferences file to actually write 
-	//changed values into the file
+	/**
+	 * takes current values of its public variables and puts them into the map of
+	 * the preferences file. flush is called on preferences file to actually write 
+	 * changed values into the file
+	 */
 	public void save() 
 	{
 		prefs.putBoolean("sound", sound);

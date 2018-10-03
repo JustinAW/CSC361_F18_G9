@@ -1,3 +1,8 @@
+/**
+ * @author Justin Study ch 6
+ *		   Justin Study ch 8 
+ */
+
 package com.packtpub.libgdx.canyonbunny.util;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -6,9 +11,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.packtpub.libgdx.canyonbunny.game.objects.AbstractGameObject;
 
 /**
- * @author Justin Study ch 6
- *		   Justin Study ch 8 
- *
  * this class holds all methods for our camera to track our main character in the game world
  */
 public class CameraHelper
@@ -29,7 +31,7 @@ public class CameraHelper
 		zoom = 1.0f;
 	}
 	
-	/*
+	/**
 	 * moves the position of the camera every time the game udpates
 	 */
 	public void update (float deltaTime)
