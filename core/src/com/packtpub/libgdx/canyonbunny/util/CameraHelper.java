@@ -7,7 +7,9 @@ import com.packtpub.libgdx.canyonbunny.game.objects.AbstractGameObject;
 
 /**
  * @author Justin Study ch 6
+ *		   Justin Study ch 8 
  *
+ * this class holds all methods for our camera to track our main character in the game world
  */
 public class CameraHelper
 {
@@ -15,6 +17,7 @@ public class CameraHelper
 	
 	private final float MAX_ZOOM_IN = 0.25f;
 	private final float MAX_ZOOM_OUT = 10.0f;
+	private final float FOLLOW_SPEED = 4.0f;
 	
 	private Vector2 position;
 	private float zoom;
@@ -26,12 +29,17 @@ public class CameraHelper
 		zoom = 1.0f;
 	}
 	
+	/*
+	 * moves the position of the camera every time the game udpates
+	 */
 	public void update (float deltaTime)
 	{
 		if (!hasTarget()) return;
 		
 		position.x = target.position.x + target.origin.x;
 		position.y = target.position.y + target.origin.y;
+		
+		position.lerp(target.position, FOLLOW_SPEED * deltaTime);
 		
 		//Prevent camera from moving down too far
 		position.y = Math.max(-1f, position.y);

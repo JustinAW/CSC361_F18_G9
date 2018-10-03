@@ -1,5 +1,8 @@
 /*
  * @author Justin Study
+ * 
+ * draws the bunny head. Which is the main character of the game. handles the bunny's 
+ * properties like jumping and moving and which state of jumping or falling it is in.
  */
 
 package com.packtpub.libgdx.canyonbunny.game.objects;
@@ -127,9 +130,9 @@ public class BunnyHead extends AbstractGameObject
     }
 	
     /*
-     *handles switching of view direction according to current move direction
-     *remaining power up time is checked. If time is up its disabled
-    */
+     * handles switching of view direction according to current move direction
+     * remaining power up time is checked. If time is up its disabled
+     */
 	@Override
 	public void update (float deltaTime)
 	{
