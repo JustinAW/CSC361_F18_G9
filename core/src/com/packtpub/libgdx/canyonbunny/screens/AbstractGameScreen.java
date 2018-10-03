@@ -1,3 +1,7 @@
+/**
+ * @author Justin Study ch 7
+ */
+
 package com.packtpub.libgdx.canyonbunny.screens;
 
 import com.badlogic.gdx.Game;
@@ -6,10 +10,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.packtpub.libgdx.canyonbunny.game.Assets;
 
 /**
- * @author Justin Study ch 7
- *
  * abstract class for game screen to use. provides methods used inside game screen
- * 
  */
 public abstract class AbstractGameScreen implements Screen
 {
