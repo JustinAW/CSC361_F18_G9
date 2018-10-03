@@ -1,4 +1,4 @@
-/*
+/**
  * @author Justin Study
  * 
  * draws the bunny head. Which is the main character of the game. handles the bunny's 
@@ -41,7 +41,7 @@ public class BunnyHead extends AbstractGameObject
     	init();
     }
     
-    /* 
+    /** 
      * initializes bunny head object by setting its physics values
      * deactivates the feather powerup
      */
@@ -76,7 +76,7 @@ public class BunnyHead extends AbstractGameObject
     	dustParticles.load(Gdx.files.internal("particles/dust.pfx"), Gdx.files.internal("particles"));
     }
     
-    /* 
+    /** 
      * allows us to make the bunny jump. jumpState will decide if its possible to 
      * jump or not or if its a single or multi jump
      */
@@ -109,7 +109,7 @@ public class BunnyHead extends AbstractGameObject
     	}
     }
     
-    /*
+    /**
      * allows us to toggle feather powerup effect
      */
     public void setFeatherPowerup(boolean pickedUp) 
@@ -121,7 +121,7 @@ public class BunnyHead extends AbstractGameObject
     	}
     }
     
-    /*
+    /**
      * find out whether the powerup is still active
      */
     public boolean hasFeatherPowerup()
@@ -129,7 +129,7 @@ public class BunnyHead extends AbstractGameObject
     	return hasFeatherPowerup && timeLeftFeatherPowerup > 0;
     }
 	
-    /*
+    /**
      * handles switching of view direction according to current move direction
      * remaining power up time is checked. If time is up its disabled
      */
@@ -155,7 +155,7 @@ public class BunnyHead extends AbstractGameObject
 		dustParticles.update(deltaTime);
 	}
 	
-	/*
+	/**
 	 * handles calculations and switching of states that is needed to enable
 	 * jumping and falling. also triggers particle effect
 	 */
@@ -198,7 +198,7 @@ public class BunnyHead extends AbstractGameObject
 		}
 	}
 	
-	/*
+	/**
 	 * handles drawing the bunny head to the screen. also draws the dust particles 
 	 * that the bunny leaves. Changes colors of bunny if power up
 	 */
