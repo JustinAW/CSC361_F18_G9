@@ -1,5 +1,3 @@
-package com.packtpub.libgdx.canyonbunny.util;
-
 /**
  * @author Justin Study Ch.4 9/17/18
  * Justin Study ch 5 9/17/18
@@ -9,6 +7,9 @@ package com.packtpub.libgdx.canyonbunny.util;
  * 		Justin Weigle 23-Sept-18
  * 		Justin Study ch. 7
  */
+
+package com.packtpub.libgdx.canyonbunny.util;
+
 public class Constants
 {
     //Visible  game  world  is  5  meters  wide
