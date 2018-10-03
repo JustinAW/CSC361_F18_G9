@@ -12,9 +12,11 @@ import com.packtpub.libgdx.canyonbunny.screens.MenuScreen;
  */
 public class CanyonBunnyMain extends Game
 {
-	//platform independent entry point for the game. LibGdx instructed to through 
-	//setScreen() method by Game class to change current screen. call menuscreen to 
-	//start the game
+	/* 
+	 * platform independent entry point for the game. LibGdx instructed to through 
+	 * setScreen() method by Game class to change current screen. call menuscreen to 
+	 * start the game
+	 */
 	@Override
 	public void create()
 	{

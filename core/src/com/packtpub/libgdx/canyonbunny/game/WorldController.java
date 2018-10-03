@@ -35,13 +35,17 @@ import com.packtpub.libgdx.canyonbunny.screens.MenuScreen;
 
 public class WorldController extends InputAdapter
 {
-	//allows us to save a reference to game instance. enables us to switch to 
-	//another screen. 
+	/*
+	 * allows us to save a reference to game instance. enables us to switch to 
+	 * another screen
+	 */
 	private Game game;
 	private static final String TAG = WorldController.class.getName();
 	public CameraHelper cameraHelper;
 	
-	//constructs game instance and stores game variable
+	/*
+	 * constructs game instance and stores game variable
+	 */
 	public WorldController (Game game)
 	{
 		this.game = game;
@@ -68,6 +72,10 @@ public class WorldController extends InputAdapter
 		cameraHelper.setTarget(level.bunnyHead);
 	}
 	
+	/*
+	 * draws squares for testing game code
+	 * no longer used
+	 */
 	private Pixmap createProceduralPixmap (int width, int height)
 	{
 		Pixmap pixmap = new Pixmap(width, height, Format.RGBA8888);
@@ -179,16 +187,25 @@ public class WorldController extends InputAdapter
 	
 	private float timeLeftGameOverDelay;
 	
+	/*
+	 * checks how many lives the player has left
+	 */
 	public boolean isGameOver ()
 	{
 		return lives < 0;
 	}
 	
+	/*
+	 * checks if the bunny is in the water
+	 */
 	public boolean isPlayerInWater ()
 	{
 		return level.bunnyHead.position.y < -5;
 	}
 	
+	/*
+	 * handles what to do when the bunny collides with a rock
+	 */
 	private void onCollisionBunnyHeadWithRock(Rock rock) 
 	{
 		BunnyHead bunnyHead = level.bunnyHead;
@@ -223,12 +240,20 @@ public class WorldController extends InputAdapter
 			break;
 		}
 	}
+	
+	/*
+	 * handles what to do when the bunny collides with a gold coin
+	 */
 	private void onCollisionBunnyWithGoldCoin(GoldCoin goldCoin) 
 	{
 		goldCoin.collected = true;
 		score += goldCoin.getScore();
 		Gdx.app.log(TAG,  "Gold coin collected");		
 	}
+	
+	/*
+	 * handles what to do when the bunny collides with a feather
+	 */
 	private void onCollisionBunnyWithFeather(Feather feather) 
 	{
 		feather.collected = true;
@@ -241,6 +266,9 @@ public class WorldController extends InputAdapter
 	private Rectangle r1 = new Rectangle();
 	private Rectangle r2 = new Rectangle();
 	
+	/*
+	 * tests collisions of all objects that can collide
+	 */
 	private void testCollisions ()
 	{
 		r1.set(level.bunnyHead.position.x, level.bunnyHead.position.y,
