@@ -3,7 +3,7 @@
  * 
  * @author Justin Weigle 16-Sept-18
  * 
- * @edits Justin Study ch. 8
+ * @edits Justin Study ch 8
  */
 
 package com.packtpub.libgdx.canyonbunny.game.objects;
