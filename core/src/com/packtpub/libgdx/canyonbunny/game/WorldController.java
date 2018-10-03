@@ -1,4 +1,4 @@
-/*
+/**
  * Handles input from user to control the game world
  * 
  * @author Justin Weigle 16-Sept-18
@@ -35,7 +35,7 @@ import com.packtpub.libgdx.canyonbunny.screens.MenuScreen;
 
 public class WorldController extends InputAdapter
 {
-	/*
+	/**
 	 * allows us to save a reference to game instance. enables us to switch to 
 	 * another screen
 	 */
@@ -43,7 +43,7 @@ public class WorldController extends InputAdapter
 	private static final String TAG = WorldController.class.getName();
 	public CameraHelper cameraHelper;
 	
-	/*
+	/**
 	 * constructs game instance and stores game variable
 	 */
 	public WorldController (Game game)
@@ -72,7 +72,7 @@ public class WorldController extends InputAdapter
 		cameraHelper.setTarget(level.bunnyHead);
 	}
 	
-	/*
+	/**
 	 * draws squares for testing game code
 	 * no longer used
 	 */
@@ -187,7 +187,7 @@ public class WorldController extends InputAdapter
 	
 	private float timeLeftGameOverDelay;
 	
-	/*
+	/**
 	 * checks how many lives the player has left
 	 */
 	public boolean isGameOver ()
@@ -195,7 +195,7 @@ public class WorldController extends InputAdapter
 		return lives < 0;
 	}
 	
-	/*
+	/**
 	 * checks if the bunny is in the water
 	 */
 	public boolean isPlayerInWater ()
@@ -203,7 +203,7 @@ public class WorldController extends InputAdapter
 		return level.bunnyHead.position.y < -5;
 	}
 	
-	/*
+	/**
 	 * handles what to do when the bunny collides with a rock
 	 */
 	private void onCollisionBunnyHeadWithRock(Rock rock) 
@@ -241,7 +241,7 @@ public class WorldController extends InputAdapter
 		}
 	}
 	
-	/*
+	/**
 	 * handles what to do when the bunny collides with a gold coin
 	 */
 	private void onCollisionBunnyWithGoldCoin(GoldCoin goldCoin) 
@@ -251,7 +251,7 @@ public class WorldController extends InputAdapter
 		Gdx.app.log(TAG,  "Gold coin collected");		
 	}
 	
-	/*
+	/**
 	 * handles what to do when the bunny collides with a feather
 	 */
 	private void onCollisionBunnyWithFeather(Feather feather) 
@@ -266,7 +266,7 @@ public class WorldController extends InputAdapter
 	private Rectangle r1 = new Rectangle();
 	private Rectangle r2 = new Rectangle();
 	
-	/*
+	/**
 	 * tests collisions of all objects that can collide
 	 */
 	private void testCollisions ()
@@ -331,8 +331,10 @@ public class WorldController extends InputAdapter
 		return false;
 	}
 	
-	//new method to implement screens
-	//will switch to menu screen when called.
+	/**
+	 * new method to implement screens
+	 * will switch to menu screen when called.
+	 */
 	private void backToMenu()
 	{
 		//switch to menu screen

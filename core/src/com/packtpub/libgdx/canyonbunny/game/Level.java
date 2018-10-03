@@ -1,4 +1,4 @@
-/*
+/**
  * Class responsible for loading levels
  * 
  * @author Justin Weigle 16-Sept-18
