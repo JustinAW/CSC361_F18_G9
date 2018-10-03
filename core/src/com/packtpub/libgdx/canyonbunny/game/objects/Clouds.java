@@ -58,8 +58,10 @@ public class Clouds extends AbstractGameObject
 		init();
 	}
 	
-	// initializes 3 cloud types and spawns them by calling
-	// spawnCloud
+	/* 
+	 * initializes 3 cloud types and spawns them by calling
+	 * spawnCloud
+	 */
 	private void init() {
         dimension.set(3.0f, 1.5f);
         regClouds = new Array<TextureRegion>();
@@ -77,7 +79,9 @@ public class Clouds extends AbstractGameObject
         }
 	}
 	
-	// spawns clouds and makes them move
+	/* 
+	 * spawns clouds and makes them move
+	 */
 	private Cloud spawnCloud() 
 	{
         Cloud cloud = new Cloud();

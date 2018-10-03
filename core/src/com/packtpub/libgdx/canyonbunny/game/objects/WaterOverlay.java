@@ -1,3 +1,7 @@
+/*
+ * @author Justin Study
+ */
+
 package com.packtpub.libgdx.canyonbunny.game.objects;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

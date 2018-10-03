@@ -12,6 +12,7 @@ import com.badlogic.gdx.math.MathUtils;
  * @author Justin Study ch 5 9/17/18
  * @author Justin Study ch 6
  */
+
 public abstract class AbstractGameObject 
 {
 	//instance variables to keep track of objects
@@ -43,8 +44,10 @@ public abstract class AbstractGameObject
 		bounds = new Rectangle();
 	}
 	
-	//called on every update cycle to calculate the next x component of the objects
-	//velocity in terms of given delta time
+	/*
+	 * called on every update cycle to calculate the next x component of the objects
+	 * velocity in terms of given delta time
+	 */
 	 protected void updateMotionX (float deltaTime) 
 	 {
 		 if(velocity.x != 0)
@@ -66,8 +69,10 @@ public abstract class AbstractGameObject
 		 velocity.x = MathUtils.clamp(velocity.x, -terminalVelocity.x, terminalVelocity.x);
 	 }
 	
-	//called on every update cycle to calculate the next y component of the objects
-	//velocity in terms of given delta time
+	/* 
+	 * called on every update cycle to calculate the next y component of the objects
+	 * velocity in terms of given delta time
+	 */
 	protected void updateMotionY (float deltaTime)
 	{
 		if(velocity.y != 0)
@@ -88,7 +93,9 @@ public abstract class AbstractGameObject
 		velocity.y = MathUtils.clamp(velocity.y, -terminalVelocity.y, terminalVelocity.y);
 	}
 	 
-	//called inside world controller
+	/*
+	 * called inside world controller
+	 */
 	public void update(float deltaTime)
 	{
 		updateMotionX(deltaTime);
@@ -98,6 +105,8 @@ public abstract class AbstractGameObject
 		position.y += velocity.y * deltaTime;
 	}
 	
-	//called inside render
+	/*
+	 * called inside render
+	 */
 	public abstract void render(SpriteBatch batch);
 }

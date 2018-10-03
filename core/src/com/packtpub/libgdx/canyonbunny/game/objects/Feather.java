@@ -23,7 +23,9 @@ public class Feather extends AbstractGameObject
 		init();
 	}
 	
-	// initializes feather as not collected
+	/*
+	 *  initializes feather as not collected
+	 */
 	private void init ()
 	{
 		dimension.set(0.5f, 0.5f);
@@ -36,7 +38,9 @@ public class Feather extends AbstractGameObject
 		collected = false;
 	}
 	
-	//if the feather has not been collected, will be rendered on the screen
+	/*
+	 * if the feather has not been collected, will be rendered on the screen
+	 */
 	public void render (SpriteBatch batch)
 	{
 		if (collected) return;

@@ -1,3 +1,7 @@
+/*
+ * @author Justin Study
+ */
+
 package com.packtpub.libgdx.canyonbunny.game.objects;
 
 import com.badlogic.gdx.Gdx;
@@ -32,8 +36,10 @@ public class BunnyHead extends AbstractGameObject
     	init();
     }
     
-    //initializes bunny head object by setting its physics values
-    //deactivates the feather powerup
+    /*
+     * initializes bunny head object by setting its physics values
+     * deactivates the feather powerup
+     */
     public void init() 
     {
     	dimension.set(1,1);
@@ -56,8 +62,10 @@ public class BunnyHead extends AbstractGameObject
     	timeLeftFeatherPowerup = 0;
     }
     
-    //allows us to make the bunny jump. jumpState will decide if its possible to 
-    //jump or not or if its a single or multi jump
+    /* 
+     * allows us to make the bunny jump. jumpState will decide if its possible to 
+     * jump or not or if its a single or multi jump
+     */
     public void setJumping(boolean jumpKeyPressed) 
     {
     	switch (jumpState) 
@@ -87,7 +95,9 @@ public class BunnyHead extends AbstractGameObject
     	}
     }
     
-    //allows us to toggle feather powerup effect
+    /*
+     * allows us to toggle feather powerup effect
+     */
     public void setFeatherPowerup(boolean pickedUp) 
     {
     	hasFeatherPowerup = pickedUp;
@@ -97,14 +107,18 @@ public class BunnyHead extends AbstractGameObject
     	}
     }
     
-    //find out whether the powerup is still active
+    /*
+     * find out whether the powerup is still active
+     */
     public boolean hasFeatherPowerup()
     {
     	return hasFeatherPowerup && timeLeftFeatherPowerup > 0;
     }
 	
-    //handles switching of view direction according to current move direction
-    //remaining power up time is checked. If time is up its disabled
+    /*
+     * handles switching of view direction according to current move direction
+     * remaining power up time is checked. If time is up its disabled
+     */
 	@Override
 	public void update (float deltaTime)
 	{
@@ -126,8 +140,10 @@ public class BunnyHead extends AbstractGameObject
 		}
 	}
 	
-	//handles calculations and switching of states that is needed to enable
-	//jumping and falling
+	/*
+	 * handles calculations and switching of states that is needed to enable
+	 * jumping and falling
+	 */
 	@Override
 	protected void updateMotionY(float deltaTime)
 	{
