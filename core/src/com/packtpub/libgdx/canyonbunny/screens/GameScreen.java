@@ -1,3 +1,7 @@
+/**
+ * @author Justin Study ch 7
+ */
+
 package com.packtpub.libgdx.canyonbunny.screens;
 
 import com.badlogic.gdx.Game;
@@ -9,10 +13,7 @@ import com.packtpub.libgdx.canyonbunny.util.GamePreferences;
 import com.packtpub.libgdx.canyonbunny.util.CharacterSkin;
 import com.packtpub.libgdx.canyonbunny.util.GamePreferences;
 
-
 /**
- * @author Justin Study ch 7
- *
  * displays the game screen to the user
  */
 public class GameScreen extends AbstractGameScreen
@@ -48,7 +49,9 @@ public class GameScreen extends AbstractGameScreen
 		worldRenderer.render();
 	}
 	
-	//code that was in create() of canyonbunnymain to accomodate screen interface
+	/**
+	 * code that was in create() of canyonbunnymain to accomodate screen interface
+	 */
 	@Override
 	public void show()
 	{
@@ -58,7 +61,9 @@ public class GameScreen extends AbstractGameScreen
 		Gdx.input.setCatchBackKey(true);
 	}
 	
-	//code that was in dispos() of canyonbunnymain to accomodate screen interface
+	/**
+	 * code that was in dispos() of canyonbunnymain to accomodate screen interface
+	 */
 	@Override
 	public void hide()
 	{
@@ -66,7 +71,9 @@ public class GameScreen extends AbstractGameScreen
 		Gdx.input.setCatchBackKey(false);
 	}
 	
-	//pause and resume for switching between applications
+	/**
+	 * pause and resume for switching between applications
+	 */
 	@Override
 	public void pause()
 	{
