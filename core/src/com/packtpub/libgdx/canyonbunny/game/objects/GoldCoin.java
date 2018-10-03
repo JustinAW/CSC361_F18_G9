@@ -23,7 +23,9 @@ public class GoldCoin extends AbstractGameObject
 		init();
 	}
 	
-	// initializes coin as not collected
+	/*
+	 *  initializes coin as not collected
+	 */
 	private void init ()
 	{
 		dimension.set(0.5f, 0.5f);
@@ -36,7 +38,9 @@ public class GoldCoin extends AbstractGameObject
 		collected = false;
 	}
 	
-	//if the coin has not been collected, will be rendered on the screen
+	/*
+	 * if the coin has not been collected, will be rendered on the screen
+	 */
 	public void render (SpriteBatch batch)
 	{
 		if (collected) return;

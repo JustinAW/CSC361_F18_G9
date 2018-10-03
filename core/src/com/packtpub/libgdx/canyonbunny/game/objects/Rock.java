@@ -33,7 +33,9 @@ public class Rock extends AbstractGameObject
 		init();
 	}
 	
-	// initializes rocks as well as the floating mechanism
+	/*
+	 *  initializes rocks as well as the floating mechanism
+	 */
 	private void init ()
 	{
 		dimension.set(1,1.5f);
@@ -49,7 +51,9 @@ public class Rock extends AbstractGameObject
 		floatTargetPosition = null;
 	}
 	
-	// sets the length of each rock
+	/*
+	 *  sets the length of each rock
+	 */
 	public void setLength (int length)
 	{
 		this.length = length;
@@ -101,8 +105,10 @@ public class Rock extends AbstractGameObject
 				reg.getRegionWidth(), reg.getRegionHeight(), true, false);
 	}
 	
-	// gives floating cycle time a random aspect so that
-	// the movement seems more natural
+	/* 
+	 * gives floating cycle time a random aspect so that
+	 * the movement seems more natural
+	 */
 	@Override
 	public void update (float deltaTime)
 	{
