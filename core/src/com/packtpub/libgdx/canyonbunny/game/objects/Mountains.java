@@ -1,13 +1,8 @@
 /*
- * Class that determines the size of Mountains
+ * Class that determines the size of Mountains. Also draws the mountains in the background and handles scrolling speed
  * 
  * @author Justin Weigle 16-Sept-18
- * 
-<<<<<<< HEAD
  * @edits Justin Study ch. 8
-=======
- * @edits Justin Study ch 8
->>>>>>> p.278_Mountain
  */
 
 package com.packtpub.libgdx.canyonbunny.game.objects;
