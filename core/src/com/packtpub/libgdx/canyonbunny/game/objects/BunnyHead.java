@@ -152,8 +152,10 @@ public class BunnyHead extends AbstractGameObject
 		dustParticles.update(deltaTime);
 	}
 	
-	//handles calculations and switching of states that is needed to enable
-	//jumping and falling
+	/*
+	 * handles calculations and switching of states that is needed to enable
+	 * jumping and falling. also triggers particle effect
+	 */
 	@Override
 	protected void updateMotionY(float deltaTime)
 	{
