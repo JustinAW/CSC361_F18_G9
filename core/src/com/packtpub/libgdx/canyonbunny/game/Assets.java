@@ -158,7 +158,9 @@ public class Assets implements Disposable, AssetErrorListener
 		}
 	}
 	
-	//removes assets that must be disposed manually
+	/*
+	 * removes assets that must be disposed manually
+	 */
 	@Override
 	public void dispose ()
 	{
