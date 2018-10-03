@@ -1,4 +1,4 @@
-/*
+/**
  * Class that determines the size of Mountains. Also draws the mountains in the background and handles scrolling speed
  * 
  * @author Justin Weigle 16-Sept-18
@@ -26,7 +26,7 @@ public class Mountains extends AbstractGameObject
 		init();
 	}
 	
-	/*
+	/**
 	 * method that sets mountains to be 10m wide by 2 meters high. imports texture from 
 	 * Assets class. origin of mountains id offset in negative direction and width is doubled
 	 */
@@ -42,7 +42,7 @@ public class Mountains extends AbstractGameObject
 		length += dimension.x * 2;
 	}
 	
-	/*
+	/**
 	 * method that sets the position of the mountains in the background. Takes input from render() below and 
 	 * applies calculations to shift and offset the mountains apart from each other to give appearance of depth. 
 	 * parallaxSpeedX used to give depth illusion. objects in background will scroll slower than objects up close.
@@ -89,7 +89,7 @@ public class Mountains extends AbstractGameObject
 		position.set(camPosition.x, position.y);
 	}
 	
-	/*
+	/**
 	 * uses the previous method to draw the mountains to the screen. uses inputs sprite batch, offsetX for a 
 	 * horizontal shift. uses offset Y for vertical shift, uses tintColor to change mountains from black to white,
 	 * uses parallax speed to slow scrolling of distant mountains to give realism. 
