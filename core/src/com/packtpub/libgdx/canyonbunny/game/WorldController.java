@@ -104,9 +104,11 @@ public class WorldController extends InputAdapter
 		} else {
 			handleInputGame(deltaTime);
 		}
+		
 		level.update(deltaTime);
 		testCollisions();
 		cameraHelper.update(deltaTime);
+		
 		if (!isGameOver() && isPlayerInWater())
 		{
 			lives--;
@@ -120,8 +122,16 @@ public class WorldController extends InputAdapter
 			    initLevel();
 		    }
 		}
+		
+		//enables mountains to scroll at different speeds
+		level.mountains.updateScrollPosition(cameraHelper.getPosition());
 	}
 	
+	/**
+	 * Captures input from the keyboard to move the camera up, down, left, right
+	 * and zoom in and out.
+	 * @param deltaTime 
+	 */
 	private void handleDebugInput (float deltaTime)
 	{
 		if (Gdx.app.getType() != ApplicationType.Desktop) return;
@@ -148,6 +158,11 @@ public class WorldController extends InputAdapter
 		if(Gdx.input.isKeyPressed(Keys.SLASH)) cameraHelper.setZoom(1);
 	}
 	
+	/**
+	 * moves the camera by a specified amount
+	 * @param x horizontal movement of camera
+	 * @param y vertical movement of camera
+	 */
 	private void moveCamera (float x, float y)
 	{
 		x += cameraHelper.getPosition().x;
@@ -155,6 +170,11 @@ public class WorldController extends InputAdapter
 		cameraHelper.setPosition(x,  y);
 	}
 	
+	/**
+	 * handles the bunny head main character moving left and right and dettects if 
+	 * the character is jumping then changes the jump state
+	 * @param deltaTime
+	 */
 	private void handleInputGame (float deltaTime)
 	{
 		if (cameraHelper.hasTarget(level.bunnyHead))
