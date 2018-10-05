@@ -43,6 +43,13 @@ public class WorldController extends InputAdapter
 	private static final String TAG = WorldController.class.getName();
 	public CameraHelper cameraHelper;
 	
+	private float timeLeftGameOverDelay;
+	
+	public Level level;
+	public int lives;
+	public int score;
+	public float livesVisual;
+	
 	/**
 	 * constructs game instance and stores game variable
 	 */
@@ -57,13 +64,10 @@ public class WorldController extends InputAdapter
 		Gdx.input.setInputProcessor(this);
 		cameraHelper = new CameraHelper();
 		lives = Constants.LIVES_START;
+		livesVisual = lives;
 		timeLeftGameOverDelay = 0;
 		initLevel();
 	}
-	
-	public Level level;
-	public int lives;
-	public int score;
 	
 	private void initLevel ()
 	{
@@ -125,6 +129,11 @@ public class WorldController extends InputAdapter
 		
 		//enables mountains to scroll at different speeds
 		level.mountains.updateScrollPosition(cameraHelper.getPosition());
+		//slowly decrements livesVisual so we can play an animation until it equals lives variable
+		if(livesVisual > lives)
+		{
+			livesVisual = Math.max(lives,  livesVisual - 1 * deltaTime);
+		}
 	}
 	
 	/**
@@ -204,8 +213,6 @@ public class WorldController extends InputAdapter
 			}
 		}
 	}
-	
-	private float timeLeftGameOverDelay;
 	
 	/**
 	 * checks how many lives the player has left
