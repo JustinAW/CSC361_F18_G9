@@ -122,8 +122,7 @@ public class WorldRenderer implements Disposable
 				100, 100, 
 				0.35f, -0.35f, 
 				0);
-		Assets.instance.fonts.defaultBig.draw(batch, "", 
-				(int)worldController.scoreVisual, 
+		Assets.instance.fonts.defaultBig.draw(batch, "" + (int)worldController.scoreVisual, 
 				x + 75, y + 37);
 	}
 	
@@ -171,28 +170,22 @@ public class WorldRenderer implements Disposable
 	private void renderGuiFpsCounter (SpriteBatch batch)
 	{
 		float x = cameraGUI.viewportWidth - 55;
-		float y = cameraGUI.viewportHeight -15;
+		float y = cameraGUI.viewportHeight - 15;
 		int fps = Gdx.graphics.getFramesPerSecond();
 		BitmapFont fpsFont = Assets.instance.fonts.defaultNormal;
 		if(fps >= 45)
 		{
-			//45 or more fps show in green
+			//45 or more fps show green
 			fpsFont.setColor(0,1,0,1);
-		}
-		if(fps >= 30)
-		{
-			//30 or more fps show in yello
+		}else if (fps >= 30) {
+			//30 or more FPS show up in yellow
+			fpsFont.setColor(1,1,0,1);
+		}else {
+			//lesss than 30 fps show up in red
 			fpsFont.setColor(1,0,0,1);
 		}
-		if(fps <30)
-		{
-			//less than 30 shows in red
-			fpsFont.setColor(1,0,0,1);
-		}
-		
 		fpsFont.draw(batch, "FPS: " + fps, x, y);
-		fpsFont.setColor(1,1,1,1);
-		
+		fpsFont.setColor(1,1,1,1); //white
 	}
 	
 	/**

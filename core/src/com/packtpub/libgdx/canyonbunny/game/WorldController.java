@@ -48,7 +48,9 @@ public class WorldController extends InputAdapter
 	public Level level;
 	public int lives;
 	public int score;
+	//used for animations with score and lives on GUI
 	public float livesVisual;
+	public float scoreVisual;
 	
 	/**
 	 * constructs game instance and stores game variable
@@ -72,6 +74,7 @@ public class WorldController extends InputAdapter
 	private void initLevel ()
 	{
 		score = 0;
+		scoreVisual = score;
 		level = new Level(Constants.LEVEL_01);
 		cameraHelper.setTarget(level.bunnyHead);
 	}
@@ -133,6 +136,11 @@ public class WorldController extends InputAdapter
 		if(livesVisual > lives)
 		{
 			livesVisual = Math.max(lives,  livesVisual - 1 * deltaTime);
+		}
+		//slowly increments scoreVisual to play animation until it equals score
+		if(scoreVisual < score)
+		{
+			scoreVisual = Math.min(score, scoreVisual + 250 * deltaTime);		
 		}
 	}
 	
