@@ -1,21 +1,26 @@
 /**
  * @author Justin Study
- * 
- * draws the bunny head. Which is the main character of the game. handles the bunny's 
- * properties like jumping and moving and which state of jumping or falling it is in.
+ * @edits
+ * 		Justin Weigle 7-Oct-18
  */
 
 package com.packtpub.libgdx.canyonbunny.game.objects;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.packtpub.libgdx.canyonbunny.game.Assets;
-import com.packtpub.libgdx.canyonbunny.util.Constants;
-import com.packtpub.libgdx.canyonbunny.util.CharacterSkin;
-import com.packtpub.libgdx.canyonbunny.util.GamePreferences;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.packtpub.libgdx.canyonbunny.game.Assets;
+import com.packtpub.libgdx.canyonbunny.util.AudioManager;
+import com.packtpub.libgdx.canyonbunny.util.CharacterSkin;
+import com.packtpub.libgdx.canyonbunny.util.Constants;
+import com.packtpub.libgdx.canyonbunny.util.GamePreferences;
 
+/**
+ * Draws the bunny head. Which is the main character of the game. handles the bunny's 
+ * properties like jumping and moving and which state of jumping or falling it is in.
+ */
 public class BunnyHead extends AbstractGameObject
 {
 	public static final String TAG = BunnyHead.class.getName();
@@ -87,6 +92,7 @@ public class BunnyHead extends AbstractGameObject
     		case GROUNDED: //character is standing
     		  if(jumpKeyPressed)
     		  {
+    			  AudioManager.instance.play(Assets.instance.sounds.jump);
     			  //start counting jump time from the beginning
     			  timeJumping = 0;
     			  jumpState = JUMP_STATE.JUMP_RISING;
@@ -102,6 +108,9 @@ public class BunnyHead extends AbstractGameObject
     		case JUMP_FALLING: //Falling down after jump
     		  if(jumpKeyPressed && hasFeatherPowerup)
     		  {
+    			  AudioManager.instance.play
+    			  (Assets.instance.sounds.jumpWithFeather, 1, 
+    					  MathUtils.random(1.0f, 1.1f));
     			  timeJumping = JUMP_TIME_OFFSET_FLYING;
     			  jumpState = JUMP_STATE.JUMP_RISING;
     		  }
