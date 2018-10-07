@@ -1,3 +1,10 @@
+/**
+ * @author Justin Study
+ * 
+ * draws the bunny head. Which is the main character of the game. handles the bunny's 
+ * properties like jumping and moving and which state of jumping or falling it is in.
+ */
+
 package com.packtpub.libgdx.canyonbunny.game.objects;
 
 import com.badlogic.gdx.Gdx;
@@ -7,6 +14,7 @@ import com.packtpub.libgdx.canyonbunny.game.Assets;
 import com.packtpub.libgdx.canyonbunny.util.Constants;
 import com.packtpub.libgdx.canyonbunny.util.CharacterSkin;
 import com.packtpub.libgdx.canyonbunny.util.GamePreferences;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 
 public class BunnyHead extends AbstractGameObject
 {
@@ -26,38 +34,52 @@ public class BunnyHead extends AbstractGameObject
     public JUMP_STATE jumpState;
     public boolean hasFeatherPowerup;
     public float timeLeftFeatherPowerup;
+    public ParticleEffect dustParticles = new ParticleEffect();
     
     public BunnyHead() 
     {
     	init();
     }
     
-    //initializes bunny head object by setting its physics values
-    //deactivates the feather powerup
+    /** 
+     * initializes bunny head object by setting its physics values
+     * deactivates the feather powerup
+     */
     public void init() 
     {
     	dimension.set(1,1);
     	regHead = Assets.instance.bunny.head;
+    	
     	//center image on game object
     	origin.set(dimension.x/2, dimension.y/2);
+    	
     	//Building box for collision detection
     	bounds.set(0, 0, dimension.x, dimension.y);
+    	
     	//set physics value
     	terminalVelocity.set(3.0f, 4.0f);
     	friction.set(12.0f, 0.0f);
     	acceleration.set(0.0f, -25.0f);
+    	
     	//View direction
     	viewDirection = VIEW_DIRECTION.RIGHT;
+    	
     	//jumpState
     	jumpState = JUMP_STATE.FALLING;
     	timeJumping = 0;
+    	
     	//Power-ups
     	hasFeatherPowerup = false;
     	timeLeftFeatherPowerup = 0;
+    	
+    	//particles
+    	dustParticles.load(Gdx.files.internal("particles/dust.pfx"), Gdx.files.internal("particles"));
     }
     
-    //allows us to make the bunny jump. jumpState will decide if its possible to 
-    //jump or not or if its a single or multi jump
+    /** 
+     * allows us to make the bunny jump. jumpState will decide if its possible to 
+     * jump or not or if its a single or multi jump
+     */
     public void setJumping(boolean jumpKeyPressed) 
     {
     	switch (jumpState) 
@@ -87,7 +109,9 @@ public class BunnyHead extends AbstractGameObject
     	}
     }
     
-    //allows us to toggle feather powerup effect
+    /**
+     * allows us to toggle feather powerup effect
+     */
     public void setFeatherPowerup(boolean pickedUp) 
     {
     	hasFeatherPowerup = pickedUp;
@@ -97,14 +121,18 @@ public class BunnyHead extends AbstractGameObject
     	}
     }
     
-    //find out whether the powerup is still active
+    /**
+     * find out whether the powerup is still active
+     */
     public boolean hasFeatherPowerup()
     {
     	return hasFeatherPowerup && timeLeftFeatherPowerup > 0;
     }
 	
-    //handles switching of view direction according to current move direction
-    //remaining power up time is checked. If time is up its disabled
+    /**
+     * handles switching of view direction according to current move direction
+     * remaining power up time is checked. If time is up its disabled
+     */
 	@Override
 	public void update (float deltaTime)
 	{
@@ -124,10 +152,13 @@ public class BunnyHead extends AbstractGameObject
 				setFeatherPowerup(false);
 			}
 		}
+		dustParticles.update(deltaTime);
 	}
 	
-	//handles calculations and switching of states that is needed to enable
-	//jumping and falling
+	/**
+	 * handles calculations and switching of states that is needed to enable
+	 * jumping and falling. also triggers particle effect
+	 */
 	@Override
 	protected void updateMotionY(float deltaTime)
 	{
@@ -162,15 +193,22 @@ public class BunnyHead extends AbstractGameObject
 		}
 		if(jumpState != JUMP_STATE.GROUNDED)
 		{
+			dustParticles.allowCompletion();
 			super.updateMotionY(deltaTime);
 		}
 	}
 	
-	
+	/**
+	 * handles drawing the bunny head to the screen. also draws the dust particles 
+	 * that the bunny leaves. Changes colors of bunny if power up
+	 */
 	@Override
 	public void render(SpriteBatch batch) 
 	{
 		TextureRegion reg = null;
+		
+		//Draw Particles
+		dustParticles.draw(batch);
 		
 		//apply skin color
 		batch.setColor(CharacterSkin.values()[GamePreferences.instance.charSkin].getColor());

@@ -1,4 +1,4 @@
-/*
+/**
  * Handles input from user to control the game world
  * 
  * @author Justin Weigle 16-Sept-18
@@ -35,13 +35,26 @@ import com.packtpub.libgdx.canyonbunny.screens.MenuScreen;
 
 public class WorldController extends InputAdapter
 {
-	//allows us to save a reference to game instance. enables us to switch to 
-	//another screen. 
+	/**
+	 * allows us to save a reference to game instance. enables us to switch to 
+	 * another screen
+	 */
 	private Game game;
 	private static final String TAG = WorldController.class.getName();
 	public CameraHelper cameraHelper;
 	
-	//constructs game instance and stores game variable
+	private float timeLeftGameOverDelay;
+	
+	public Level level;
+	public int lives;
+	public int score;
+	//used for animations with score and lives on GUI
+	public float livesVisual;
+	public float scoreVisual;
+	
+	/**
+	 * constructs game instance and stores game variable
+	 */
 	public WorldController (Game game)
 	{
 		this.game = game;
@@ -53,21 +66,23 @@ public class WorldController extends InputAdapter
 		Gdx.input.setInputProcessor(this);
 		cameraHelper = new CameraHelper();
 		lives = Constants.LIVES_START;
+		livesVisual = lives;
 		timeLeftGameOverDelay = 0;
 		initLevel();
 	}
 	
-	public Level level;
-	public int lives;
-	public int score;
-	
 	private void initLevel ()
 	{
 		score = 0;
+		scoreVisual = score;
 		level = new Level(Constants.LEVEL_01);
 		cameraHelper.setTarget(level.bunnyHead);
 	}
 	
+	/**
+	 * draws squares for testing game code
+	 * no longer used
+	 */
 	private Pixmap createProceduralPixmap (int width, int height)
 	{
 		Pixmap pixmap = new Pixmap(width, height, Format.RGBA8888);
@@ -96,9 +111,11 @@ public class WorldController extends InputAdapter
 		} else {
 			handleInputGame(deltaTime);
 		}
+		
 		level.update(deltaTime);
 		testCollisions();
 		cameraHelper.update(deltaTime);
+		
 		if (!isGameOver() && isPlayerInWater())
 		{
 			lives--;
@@ -112,8 +129,26 @@ public class WorldController extends InputAdapter
 			    initLevel();
 		    }
 		}
+		
+		//enables mountains to scroll at different speeds
+		level.mountains.updateScrollPosition(cameraHelper.getPosition());
+		//slowly decrements livesVisual so we can play an animation until it equals lives variable
+		if(livesVisual > lives)
+		{
+			livesVisual = Math.max(lives,  livesVisual - 1 * deltaTime);
+		}
+		//slowly increments scoreVisual to play animation until it equals score
+		if(scoreVisual < score)
+		{
+			scoreVisual = Math.min(score, scoreVisual + 250 * deltaTime);		
+		}
 	}
 	
+	/**
+	 * Captures input from the keyboard to move the camera up, down, left, right
+	 * and zoom in and out.
+	 * @param deltaTime 
+	 */
 	private void handleDebugInput (float deltaTime)
 	{
 		if (Gdx.app.getType() != ApplicationType.Desktop) return;
@@ -140,6 +175,11 @@ public class WorldController extends InputAdapter
 		if(Gdx.input.isKeyPressed(Keys.SLASH)) cameraHelper.setZoom(1);
 	}
 	
+	/**
+	 * moves the camera by a specified amount
+	 * @param x horizontal movement of camera
+	 * @param y vertical movement of camera
+	 */
 	private void moveCamera (float x, float y)
 	{
 		x += cameraHelper.getPosition().x;
@@ -147,6 +187,11 @@ public class WorldController extends InputAdapter
 		cameraHelper.setPosition(x,  y);
 	}
 	
+	/**
+	 * handles the bunny head main character moving left and right and dettects if 
+	 * the character is jumping then changes the jump state
+	 * @param deltaTime
+	 */
 	private void handleInputGame (float deltaTime)
 	{
 		if (cameraHelper.hasTarget(level.bunnyHead))
@@ -177,18 +222,25 @@ public class WorldController extends InputAdapter
 		}
 	}
 	
-	private float timeLeftGameOverDelay;
-	
+	/**
+	 * checks how many lives the player has left
+	 */
 	public boolean isGameOver ()
 	{
 		return lives < 0;
 	}
 	
+	/**
+	 * checks if the bunny is in the water
+	 */
 	public boolean isPlayerInWater ()
 	{
 		return level.bunnyHead.position.y < -5;
 	}
 	
+	/**
+	 * handles what to do when the bunny collides with a rock
+	 */
 	private void onCollisionBunnyHeadWithRock(Rock rock) 
 	{
 		BunnyHead bunnyHead = level.bunnyHead;
@@ -223,12 +275,20 @@ public class WorldController extends InputAdapter
 			break;
 		}
 	}
+	
+	/**
+	 * handles what to do when the bunny collides with a gold coin
+	 */
 	private void onCollisionBunnyWithGoldCoin(GoldCoin goldCoin) 
 	{
 		goldCoin.collected = true;
 		score += goldCoin.getScore();
 		Gdx.app.log(TAG,  "Gold coin collected");		
 	}
+	
+	/**
+	 * handles what to do when the bunny collides with a feather
+	 */
 	private void onCollisionBunnyWithFeather(Feather feather) 
 	{
 		feather.collected = true;
@@ -241,6 +301,9 @@ public class WorldController extends InputAdapter
 	private Rectangle r1 = new Rectangle();
 	private Rectangle r2 = new Rectangle();
 	
+	/**
+	 * tests collisions of all objects that can collide
+	 */
 	private void testCollisions ()
 	{
 		r1.set(level.bunnyHead.position.x, level.bunnyHead.position.y,
@@ -303,8 +366,10 @@ public class WorldController extends InputAdapter
 		return false;
 	}
 	
-	//new method to implement screens
-	//will switch to menu screen when called.
+	/**
+	 * new method to implement screens
+	 * will switch to menu screen when called.
+	 */
 	private void backToMenu()
 	{
 		//switch to menu screen

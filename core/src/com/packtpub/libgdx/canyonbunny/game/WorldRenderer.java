@@ -1,19 +1,23 @@
+/**
+ * Draws the game
+ * @author Justin Study ch 5 9/17/18
+ * @edits		   
+ * 		Justin Study ch 6
+ * 		Justin Weigle 1-Oct-18
+ */
+
 package com.packtpub.libgdx.canyonbunny.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
 import com.packtpub.libgdx.canyonbunny.util.Constants;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.packtpub.libgdx.canyonbunny.util.GamePreferences;
 
-/**
- * Draws the game
- * @author Justin Study ch 5 9/17/18
- * 		   Justin Study ch 6
- */
 public class WorldRenderer implements Disposable
 {
 	private OrthographicCamera camera;
@@ -21,14 +25,18 @@ public class WorldRenderer implements Disposable
 	private SpriteBatch batch;
 	private WorldController worldController;
 	
-	//initializes an instance of worldrenderer
+	/**
+	 * initializes an instance of worldrenderer
+	 */
 	public WorldRenderer (WorldController worldController) 
 	{
 		this.worldController = worldController;
 		init();
 	}
 	
-	//sets up cameras to view the game world
+	/**
+	 * sets up cameras to view the game world
+	 */
 	private void init() 
 	{
 		batch = new SpriteBatch();
@@ -42,14 +50,19 @@ public class WorldRenderer implements Disposable
 		cameraGUI.setToOrtho(true); //flip y-axis
 		cameraGUI.update();
 	}
-	//calls method that draws on screen
+	
+	/**
+	 * calls method that draws on screen
+	 */
 	public void render() 
 	{
 		renderWorld(batch);
 		renderGui(batch);
 	}
 	
-	//render world and objects within the world
+	/**
+	 * render world and objects within the world
+	 */
 	private void renderWorld(SpriteBatch batch)
 	{
 		worldController.cameraHelper.applyTo(camera);
@@ -59,7 +72,9 @@ public class WorldRenderer implements Disposable
 		batch.end();
 	}
 	
-	//renders gui and calls other methods that render specific parts of the gui like fps counter and coin amount
+	/**
+	 * renders gui and calls other methods that render specific parts of the gui like fps counter and coin amount
+	 */
 	private void renderGui(SpriteBatch batch)
 	{
 		batch.setProjectionMatrix(cameraGUI.combined);
@@ -85,16 +100,35 @@ public class WorldRenderer implements Disposable
 		batch.end();
 	}
 	
-	//draws score in top left
+	/**
+	 * draws score in top left
+	 */
 	private void renderGuiScore (SpriteBatch batch)
 	{
 		float x = -15;
 		float y = -15;
-		batch.draw(Assets.instance.goldCoin.goldCoin, x, y, 50, 50, 100, 100, 0.35f, -0.35f, 0);
-		Assets.instance.fonts.defaultBig.draw(batch, "" + worldController.score, x + 75, y +37);
+		float offsetX = 50;
+		float offsetY = 50;
+		if (worldController.scoreVisual < worldController.score)
+		{
+			long shakeAlpha = System.currentTimeMillis() % 360;
+			float shakeDiet = 1.5f;
+			offsetX += MathUtils.sinDeg(shakeAlpha * 2.2f) * shakeDiet;
+			offsetY += MathUtils.sinDeg(shakeAlpha * 2.9f) * shakeDiet;
+		}
+		batch.draw(Assets.instance.goldCoin.goldCoin, 
+				x, y, 
+				offsetX, offsetY, 
+				100, 100, 
+				0.35f, -0.35f, 
+				0);
+		Assets.instance.fonts.defaultBig.draw(batch, "" + (int)worldController.scoreVisual, 
+				x + 75, y + 37);
 	}
 	
-	//draws lives indicator in top right
+	/**
+	 * draws lives indicator in top right
+	 */
 	private void renderGuiExtraLive(SpriteBatch batch)
 	{
 		float x = cameraGUI.viewportWidth - 50 - Constants.LIVES_START * 50;
@@ -107,37 +141,56 @@ public class WorldRenderer implements Disposable
 			batch.draw(Assets.instance.bunny.head, x+i*50, y, 50, 50, 120, 100, 0.35f, -0.35f, 0);
 			batch.setColor(1,1,1,1);
 		}
+		
+		/** 
+		 * draws a temporary bunny head icon that changes in alpha
+		 * levels, scale, and rotation over time -
+		 * controlled by livesVisual
+		 */
+		if (worldController.lives >= 0 && worldController.livesVisual > worldController.lives)
+		{
+			int i = worldController.lives;
+			float alphaColor = Math.max(0, worldController.livesVisual - worldController.lives - 0.5f);
+			float alphaScale = 0.35f * (2 + worldController.lives - worldController.livesVisual) * 2;
+			float alphaRotate = -45 * alphaColor;
+			batch.setColor(1.0f, 0.7f, 0.7f, alphaColor);
+			batch.draw(Assets.instance.bunny.head, 
+					x + i * 50, y, 
+					50, 50, 
+					120, 100, 
+					alphaScale, -alphaScale, 
+					alphaRotate);
+			batch.setColor(1, 1, 1, 1);
+		}
 	}
 	
-	//draws fps counter in bottom right
+	/**
+	 * draws fps counter in bottom right
+	 */
 	private void renderGuiFpsCounter (SpriteBatch batch)
 	{
 		float x = cameraGUI.viewportWidth - 55;
-		float y = cameraGUI.viewportHeight -15;
+		float y = cameraGUI.viewportHeight - 15;
 		int fps = Gdx.graphics.getFramesPerSecond();
 		BitmapFont fpsFont = Assets.instance.fonts.defaultNormal;
 		if(fps >= 45)
 		{
-			//45 or more fps show in green
+			//45 or more fps show green
 			fpsFont.setColor(0,1,0,1);
-		}
-		if(fps >= 30)
-		{
-			//30 or more fps show in yello
+		}else if (fps >= 30) {
+			//30 or more FPS show up in yellow
+			fpsFont.setColor(1,1,0,1);
+		}else {
+			//lesss than 30 fps show up in red
 			fpsFont.setColor(1,0,0,1);
 		}
-		if(fps <30)
-		{
-			//less than 30 shows in red
-			fpsFont.setColor(1,0,0,1);
-		}
-		
 		fpsFont.draw(batch, "FPS: " + fps, x, y);
-		fpsFont.setColor(1,1,1,1);
-		
+		fpsFont.setColor(1,1,1,1); //white
 	}
 	
-	//adds game over text and feather icon to the game
+	/**
+	 * adds game over text and feather icon to the game
+	 */
 	private void renderGuiGameOverMessage(SpriteBatch batch)
 	{
 		//calculates center of gui camera viewport. 
@@ -153,9 +206,11 @@ public class WorldRenderer implements Disposable
 		}
 	}
 	
-	//draws feather power up. checks if time is still left on power up. if so, draw feather
-	//in upper left corner. small number with time left is drawn next to it. blinks if 
-	//less than 4 seconds left
+	/** 
+	 * draws feather power up. checks if time is still left on power up. if so, draw feather
+	 * in upper left corner. small number with time left is drawn next to it. blinks if 
+	 * less than 4 seconds left
+	 */
 	private void renderGuiFeatherPowerup (SpriteBatch batch)
 	{
 		float x = -15;
@@ -179,7 +234,9 @@ public class WorldRenderer implements Disposable
 		}
 	}
 	
-	//handles resizing of the game window
+	/**
+	 * handles resizing of the game window
+	 */
 	public void resize(int width, int height) 
 	{
 		camera.viewportWidth = (Constants.VIEWPORT_HEIGHT/height) * width;
@@ -192,7 +249,9 @@ public class WorldRenderer implements Disposable
 		cameraGUI.update();
 	}
 	
-	//clears unused memory
+	/**
+	 * clears unused memory
+	 */
 	@Override public void dispose() 
 	{
 		batch.dispose();
