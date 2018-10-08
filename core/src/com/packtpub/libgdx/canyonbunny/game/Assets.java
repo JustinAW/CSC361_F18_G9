@@ -1,6 +1,4 @@
 /**
- * Class responsible for loading and organizing assets
- * 
  * @author Justin Weigle
  * @edits Justin Study ch. 10
  */
@@ -11,20 +9,18 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.Disposable;
 import com.packtpub.libgdx.canyonbunny.util.Constants;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
-
 
 /**
- * @author Justin Study ch 5 9/17/18
- *
+ * Class responsible for loading and organizing assets
  */
 public class Assets implements Disposable, AssetErrorListener
 {
