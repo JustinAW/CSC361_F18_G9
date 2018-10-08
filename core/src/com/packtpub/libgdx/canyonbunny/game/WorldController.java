@@ -5,7 +5,8 @@
  * @edits
  * 		Justin Weigle 23-Sept-18
  *		Justin Weigle 25-Sept-18
- *@edits Justin Study ch. 7
+ *      Justin Study ch. 7
+ *      Justin Study ch. 10
  *changes to utilize screens
  */
 
@@ -23,6 +24,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
+import com.packtpub.libgdx.canyonbunny.util.AudioManager;
 import com.packtpub.libgdx.canyonbunny.util.CameraHelper;
 import com.packtpub.libgdx.canyonbunny.util.Constants;
 import com.packtpub.libgdx.canyonbunny.game.objects.Rock;
@@ -118,6 +120,7 @@ public class WorldController extends InputAdapter
 		
 		if (!isGameOver() && isPlayerInWater())
 		{
+			AudioManager.instance.play(Assets.instance.sounds.liveLost);
 			lives--;
 		
 		    if (isGameOver())
@@ -282,6 +285,7 @@ public class WorldController extends InputAdapter
 	private void onCollisionBunnyWithGoldCoin(GoldCoin goldCoin) 
 	{
 		goldCoin.collected = true;
+		AudioManager.instance.play(Assets.instance.sounds.pickupCoin);
 		score += goldCoin.getScore();
 		Gdx.app.log(TAG,  "Gold coin collected");		
 	}
@@ -292,6 +296,7 @@ public class WorldController extends InputAdapter
 	private void onCollisionBunnyWithFeather(Feather feather) 
 	{
 		feather.collected = true;
+		AudioManager.instance.play(Assets.instance.sounds.pickupFeather);
 		score += feather.getScore();
 		level.bunnyHead.setFeatherPowerup(true);
 		Gdx.app.log(TAG, "Feather collected");
