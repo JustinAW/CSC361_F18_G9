@@ -4,6 +4,7 @@
  * @author Justin Weigle 16-Sept-18
  * @edits
  * 		Justin Weigle 23-Sept-18
+ * 		Justin Study Ch. 11
  */
 
 package com.packtpub.libgdx.canyonbunny.game;
@@ -20,10 +21,14 @@ import com.packtpub.libgdx.canyonbunny.game.objects.WaterOverlay;
 import com.packtpub.libgdx.canyonbunny.game.objects.BunnyHead;
 import com.packtpub.libgdx.canyonbunny.game.objects.Feather;
 import com.packtpub.libgdx.canyonbunny.game.objects.GoldCoin;
+import com.packtpub.libgdx.canyonbunny.game.objects.Carrot;
+import com.packtpub.libgdx.canyonbunny.game.objects.Goal;
 
 public class Level 
 {
 	public static final String TAG = Level.class.getName();
+	public Array<Carrot> carrots;
+	public Goal goal;
 	 
 	public enum BLOCK_TYPE 
 	{
