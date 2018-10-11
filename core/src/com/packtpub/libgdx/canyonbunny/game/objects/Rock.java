@@ -1,10 +1,11 @@
-/*
+/**
  * Class that determines the size of Rocks
  * 
  * @author Justin Weigle 16-Sept-18
  * @edits
  * 		Justin Weigle 23-Sept-18
  * 		Justin Weigle 1-Oct-18
+ * 		Justin Study 10/10/18 ch. 11
  */
 
 package com.packtpub.libgdx.canyonbunny.game.objects;
@@ -106,8 +107,8 @@ public class Rock extends AbstractGameObject
 	}
 	
 	/* 
-	 * gives floating cycle time a random aspect so that
-	 * the movement seems more natural
+	 * changed to Box2d physics instead of modifying position vector. Use set Linear Velocity to 
+	 * tell Box2D about the physical cause to get moving effect.
 	 */
 	@Override
 	public void update (float deltaTime)
@@ -115,14 +116,13 @@ public class Rock extends AbstractGameObject
 		super.update(deltaTime);
 		
 		floatCycleTimeLeft -= deltaTime;
-		if (floatTargetPosition == null) floatTargetPosition = new Vector2(position);
-		
 		if (floatCycleTimeLeft <= 0)
 		{
 			floatCycleTimeLeft = FLOAT_CYCLE_TIME;
 			floatingDownwards = !floatingDownwards;
-			floatTargetPosition.y += FLOAT_AMPLITUDE * (floatingDownwards ? -1 : 1);
+			body.setLinearVelocity(0, FLOAT_AMPLITUDE * (floatingDownwards ? -1 : 1));
+		} else {
+			body.setLinearVelocity(body.getLinearVelocity().scl(0.98f));
 		}
-		position.lerp(floatTargetPosition, deltaTime);
 	}
 }
