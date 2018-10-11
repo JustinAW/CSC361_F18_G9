@@ -1,5 +1,6 @@
 /** 
  * @author Justin Weigle 30-Sept-2018
+ * @edits Justin Study ch. 10
  */
 
 package com.packtpub.libgdx.canyonbunny.screens;
@@ -29,7 +30,7 @@ import com.packtpub.libgdx.canyonbunny.game.Assets;
 import com.packtpub.libgdx.canyonbunny.util.CharacterSkin;
 import com.packtpub.libgdx.canyonbunny.util.GamePreferences;
 import com.packtpub.libgdx.canyonbunny.util.Constants;
-
+import com.packtpub.libgdx.canyonbunny.util.AudioManager;
 
 /**
  * Displays a menu to the player
@@ -154,6 +155,7 @@ public class MenuScreen extends AbstractGameScreen
 	{
 		saveSettings();
 		onCancelClicked();
+		AudioManager.instance.onSettingsUpdated();
 	}
 	
 	/** 
@@ -166,6 +168,7 @@ public class MenuScreen extends AbstractGameScreen
 		btnMenuPlay.setVisible(true);
 		btnMenuOptions.setVisible(true);
 		winOptions.setVisible(false);
+		AudioManager.instance.onSettingsUpdated();
 	}
 
 	/**
