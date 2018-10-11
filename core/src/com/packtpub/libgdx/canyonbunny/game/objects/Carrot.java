@@ -34,7 +34,7 @@ public class Carrot extends AbstractGameObject
 	}
 	
 	/**
-	 * renders the carrot to the screen with draw() method
+	 * renders the carrot to the screen with draw() method.
 	 */
 	public void render(SpriteBatch batch)
 	{
