@@ -28,7 +28,7 @@ public class Carrot extends AbstractGameObject
 		
 		regCarrot = Assets.instance.levelDecoration.carrot;
 		
-		//set bounding box for collision detection
+		//set bounding box for collision detection 
 		bounds.set(0, 0, dimension.x, dimension.y);
 		origin.set(dimension.x/2, dimension.y/2);
 	}
