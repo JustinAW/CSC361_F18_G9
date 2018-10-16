@@ -11,6 +11,10 @@ import com.packtpub.libgdx.canyonbunny.CanyonBunnyMain;
  * Launches the game on desktop
  * @author Justin Study Chap 4 9/17/18
  */
+/**
+ * @author Justin Study
+ *
+ */
 public class Main 
 {
 	private static boolean rebuildAtlas = false;
