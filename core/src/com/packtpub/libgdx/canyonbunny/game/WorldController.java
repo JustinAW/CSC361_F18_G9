@@ -401,6 +401,20 @@ public class WorldController extends InputAdapter
 		Gdx.app.log(TAG, "Feather collected");
 	}
 	
+	/**
+	 * handles what to do when the bunny collides with the goal
+	 */
+	private void onCollisionBunnyWithGoal ()
+	{
+		goalReached = true;
+		timeLeftGameOverDelay = Constants.TIME_DELAY_GAME_FINISHED;
+		Vector2 centerPosBunnyHead = 
+				new Vector2(level.bunnyHead.position);
+		centerPosBunnyHead.x += level.bunnyHead.bounds.width;
+		spawnCarrots(centerPosBunnyHead, Constants.CARROTS_SPAWN_MAX, 
+				Constants.CARROTS_SPAWN_RADIUS);
+	}
+	
 	// Rectangles for collision detection
 	private Rectangle r1 = new Rectangle();
 	private Rectangle r2 = new Rectangle();
