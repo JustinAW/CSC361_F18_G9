@@ -7,33 +7,42 @@
  *		Justin Weigle 25-Sept-18
  *      Justin Study ch. 7
  *      Justin Study ch. 10
+ *      Justin Weigle 17-Oct-18
  *changes to utilize screens
  */
 
 package com.packtpub.libgdx.canyonbunny.game;
 
+import com.badlogic.gdx.Application.ApplicationType;
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.packtpub.libgdx.canyonbunny.game.objects.BunnyHead;
+import com.packtpub.libgdx.canyonbunny.game.objects.BunnyHead.JUMP_STATE;
+import com.packtpub.libgdx.canyonbunny.game.objects.Carrot;
+import com.packtpub.libgdx.canyonbunny.game.objects.Feather;
+import com.packtpub.libgdx.canyonbunny.game.objects.GoldCoin;
+import com.packtpub.libgdx.canyonbunny.game.objects.Rock;
+import com.packtpub.libgdx.canyonbunny.screens.MenuScreen;
 import com.packtpub.libgdx.canyonbunny.util.AudioManager;
 import com.packtpub.libgdx.canyonbunny.util.CameraHelper;
 import com.packtpub.libgdx.canyonbunny.util.Constants;
-import com.packtpub.libgdx.canyonbunny.game.objects.Rock;
-import com.packtpub.libgdx.canyonbunny.game.objects.BunnyHead;
-import com.packtpub.libgdx.canyonbunny.game.objects.BunnyHead.JUMP_STATE;
-import com.packtpub.libgdx.canyonbunny.game.objects.Feather;
-import com.packtpub.libgdx.canyonbunny.game.objects.GoldCoin;
-import com.badlogic.gdx.Game;
-import com.packtpub.libgdx.canyonbunny.screens.MenuScreen;
 
 public class WorldController extends InputAdapter
 {
@@ -53,6 +62,13 @@ public class WorldController extends InputAdapter
 	//used for animations with score and lives on GUI
 	public float livesVisual;
 	public float scoreVisual;
+	
+	/**
+	 * for initPhysics
+	 */
+	private boolean goalReached;
+	public World b2world;
+	
 	
 	/**
 	 * constructs game instance and stores game variable
@@ -79,6 +95,38 @@ public class WorldController extends InputAdapter
 		scoreVisual = score;
 		level = new Level(Constants.LEVEL_01);
 		cameraHelper.setTarget(level.bunnyHead);
+	}
+	
+	/**
+	 * uses goalReached to keep track of whether or not the player has
+	 * already reached the goal.
+	 * Initializes the physics for a gravity of 9.81 meters per second squared,
+	 * just like on earth
+	 */
+	private void initPhysics ()
+	{
+		if (b2world != null) b2world.dispose();
+		b2world = new World(new Vector2(0, -9.81f), true);
+		// Rocks
+		Vector2 origin = new Vector2();
+		for (Rock rock : level.rocks)
+		{
+			BodyDef bodyDef = new BodyDef();
+			bodyDef.type = BodyType.KinematicBody;
+			bodyDef.position.set(rock.position);
+			Body body = b2world.createBody(bodyDef);
+			rock.body = body;
+			PolygonShape polygonShape = new PolygonShape();
+			origin.x = rock.bounds.width / 2.0f;
+			origin.y = rock.bounds.height / 2.0f;
+			polygonShape.setAsBox(
+					rock.bounds.width / 2.0f, rock.bounds.height / 2.0f, 
+					origin, 0);
+			FixtureDef fixtureDef = new FixtureDef();
+			fixtureDef.shape = polygonShape;
+			body.createFixture(fixtureDef);
+			polygonShape.dispose();
+		}
 	}
 	
 	/**
