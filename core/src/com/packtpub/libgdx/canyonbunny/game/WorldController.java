@@ -33,6 +33,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Disposable;
 import com.packtpub.libgdx.canyonbunny.game.objects.BunnyHead;
 import com.packtpub.libgdx.canyonbunny.game.objects.BunnyHead.JUMP_STATE;
 import com.packtpub.libgdx.canyonbunny.game.objects.Carrot;
@@ -44,7 +45,7 @@ import com.packtpub.libgdx.canyonbunny.util.AudioManager;
 import com.packtpub.libgdx.canyonbunny.util.CameraHelper;
 import com.packtpub.libgdx.canyonbunny.util.Constants;
 
-public class WorldController extends InputAdapter
+public class WorldController extends InputAdapter implements Disposable
 {
 	/**
 	 * allows us to save a reference to game instance. enables us to switch to 
@@ -497,6 +498,12 @@ public class WorldController extends InputAdapter
 			backToMenu();
 		}
 		return false;
+	}
+	
+	@Override
+	public void dispose()
+	{
+		if (b2world != null) b2world.dispose();
 	}
 	
 	/**
