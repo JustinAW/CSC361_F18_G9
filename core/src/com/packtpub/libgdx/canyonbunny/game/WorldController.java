@@ -93,8 +93,10 @@ public class WorldController extends InputAdapter
 	{
 		score = 0;
 		scoreVisual = score;
+		goalReached = false;
 		level = new Level(Constants.LEVEL_01);
 		cameraHelper.setTarget(level.bunnyHead);
+		initPhysics();
 	}
 	
 	/**
@@ -214,7 +216,8 @@ public class WorldController extends InputAdapter
 		}
 		
 		level.update(deltaTime);
-		testCollisions();
+		testCollisions(deltaTime);
+		b2world.step(deltaTime,  8,  3);
 		cameraHelper.update(deltaTime);
 		
 		if (!isGameOver() && isPlayerInWater())
@@ -422,7 +425,7 @@ public class WorldController extends InputAdapter
 	/**
 	 * tests collisions of all objects that can collide
 	 */
-	private void testCollisions ()
+	private void testCollisions (float deltaTime)
 	{
 		r1.set(level.bunnyHead.position.x, level.bunnyHead.position.y,
 				level.bunnyHead.bounds.width, level.bunnyHead.bounds.height);
@@ -457,6 +460,18 @@ public class WorldController extends InputAdapter
 			if (!r1.overlaps(r2)) continue;
 			onCollisionBunnyWithFeather(feather);
 			break;
+		}
+		
+		// Test collision: Bunny Head <-> Goal
+		if (!goalReached)
+		{
+			r2.set(level.goal.bounds);
+			r2.x += level.goal.position.x;
+			r2.y += level.goal.position.y;
+			if (r1.overlaps(r2))
+			{
+				onCollisionBunnyWithGoal();
+			}
 		}
 	}
 	
