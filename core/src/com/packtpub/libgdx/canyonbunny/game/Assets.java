@@ -70,7 +70,7 @@ public class Assets implements Disposable, AssetErrorListener
 	
 	/**
 	 * declares the variables that will hold the path to the .wav file of sounds, 
-	 * then assigns the file path to the variables
+	 * then assigns the file path to the variables.
 	 */
 	public class AssetSounds
 	{

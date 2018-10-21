@@ -81,6 +81,8 @@ public class Level
 		rocks = new Array<Rock>();
 		goldcoins = new Array<GoldCoin>();
 		feathers = new Array<Feather>();
+		carrots = new Array<Carrot>();
+	
 		
 		// load image file that represents the level data
 		Pixmap pixmap = new Pixmap(Gdx.files.internal(filename));
@@ -145,6 +147,13 @@ public class Level
 					obj.position.set(pixelX, baseHeight * obj.dimension.y + offsetHeight);
 					goldcoins.add((GoldCoin)obj);
 				}
+				else if (BLOCK_TYPE.GOAL.sameColor(currentPixel))
+				{
+					obj = new Goal();
+					offsetHeight = -7.0f;
+					obj.position.set(pixelX, baseHeight + offsetHeight);
+					goal = (Goal)obj;
+				}
 				// unknown object/pixel color
 				else
 				{
@@ -174,7 +183,10 @@ public class Level
 	public void render (SpriteBatch batch) 
 	{
 		// Draw Mountains
-		mountains.render(batch);;
+		mountains.render(batch);
+		
+		//Draw Goal
+		goal.render(batch);
 		
 		// Draw Rocks
 		for (Rock rock : rocks)
@@ -192,6 +204,12 @@ public class Level
 		for (Feather feather : feathers)
 		{
 			feather.render(batch);
+		}
+		
+		// Draw Carrots
+		for(Carrot carrot : carrots)
+		{
+			carrot.render(batch);
 		}
 		
 		// Draw Player Character (BunnyHead)
@@ -218,6 +236,10 @@ public class Level
 		for (Feather feather : feathers)
 		{
 			feather.update(deltaTime);
+		}
+		for(Carrot carrot : carrots)
+		{
+			carrot.update(deltaTime);
 		}
 		clouds.update(deltaTime);
 	}
