@@ -451,48 +451,53 @@ public class MenuScreen extends AbstractGameScreen
 		return tbl;
 	}
 
-	/**
-	 * allow us to easily show or hide menu buttons in an animated fashion
-	 * @param visible whether menu buttons are visible or not
-	 */
-	private void showMenuButtons(boolean visible) 
 	{
-        float moveDuration = 1.0f;
-        Interpolation moveEasing = Interpolation.swing;
-        float delayOptionsButton = 0.25f;
-        float moveX = 300 * (visible ? -1 : 1);
-        float moveY = 0 * (visible ? -1 : 1);
-        final Touchable touchEnabled = visible ? Touchable.enabled : Touchable.disabled;
-        btnMenuPlay.addAction(moveBy(moveX, moveY, moveDuration, moveEasing));
-        btnMenuOptions.addAction(sequence(delay(delayOptionsButton),
-                moveBy(moveX, moveY, moveDuration, moveEasing)));
-        SequenceAction seq = sequence();
-        if (visible)
-            seq.addAction(delay(delayOptionsButton + moveDuration));
-        seq.addAction(run(new Runnable() {
-            public void run() {
-                btnMenuPlay.setTouchable(touchEnabled);
-                btnMenuOptions.setTouchable(touchEnabled);
-            }
-        }));
-        stage.addAction(seq);
-    }
+	/**
+	 * easily show or hide menu buttons in an animated fashion
+	 * @param visible whether menu buttons are on or off
+	 */
+	private void showMenuButtons(boolean visible)
+	{
+		float moveDuration = 1.0f;
+		Interpolation moveEasing = Interpolation.swing;
+		float delayOptionsButton = 0.25f;
+		
+		float moveX = 300 * (visible ? -1 : 1);
+		float moveY = 0 * (visible ? -1 : 1);
+		final Touchable touchEnabled = visible ? Touchable.enabled : Touchable.disabled;
+		
+		btnMenuPlay.addAction(moveBy(moveX, moveY, moveDuration, moveEasing));
+		btnMenuOptions.addAction(sequence(delay(delayOptionsButton), 
+				moveBy(moveX, moveY, moveDuration, moveEasing)));
+		
+		SequenceAction seq = sequence();
+		if(visible)
+		{
+			seq.addAction(delay(delayOptionsButton + moveDuration));
+			seq.addAction(run(new Runnable()
+				{
+					public void run()
+					{
+						btnMenuPlay.setTouchable(touchEnabled);
+						btnMenuOptions.setTouchable(touchEnabled);
+					}
+				}));
+			stage.addAction(seq);
+		}
+	}
 	
 	/**
-	 * allow us to easily show or hide options window in an animated fashion
-	 * @param visible if window is visible or not
-	 * @param animated set to 0 if not visible, 1 if visible
+	 * easily show or hide options window in animated fashion
+	 * @param visible whether options window is visible or not
+	 * @param animated if options window should be animated or not
 	 */
-	private void showOptionsWindow(boolean visible, boolean animated) 
+	private void showOptionsWindow(boolean visible, boolean animated)
 	{
-        float alphaTo = visible ? 0.8f : 0.0f;
-        float duration = animated ? 1.0f : 0.0f;
-        Touchable touchEnabled = visible ? Touchable.enabled : Touchable.disabled;
-        winOptions.addAction(sequence(
-                touchable(touchEnabled),
-                alpha(alphaTo, duration)));
-    }
-	
+		float alphaTo = visible ? 0.8f : 0.0f;
+		float duration = animated ? 1.0f : 0.0f;
+		Touchable touchEnabled = visible ? Touchable.enabled : Touchable.disabled;
+		winOptions.addAction(sequence(touchable(touchEnabled), alpha(alphaTo, duration)));
+	}
 	
 	/** 
 	 * calls to update and render the stage and enables calling
