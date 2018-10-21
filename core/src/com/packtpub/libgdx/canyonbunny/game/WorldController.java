@@ -466,7 +466,7 @@ public class WorldController extends InputAdapter implements Disposable
 		// Test collision: Bunny Head <-> Goal
 		if (!goalReached)
 		{
-			r2.set(level.goal.bounds);
+			//r2.set(level.goal.bounds);
 			r2.x += level.goal.position.x;
 			r2.y += level.goal.position.y;
 			if (r1.overlaps(r2))
