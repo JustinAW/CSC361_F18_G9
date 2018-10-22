@@ -40,6 +40,7 @@ import com.packtpub.libgdx.canyonbunny.game.objects.Carrot;
 import com.packtpub.libgdx.canyonbunny.game.objects.Feather;
 import com.packtpub.libgdx.canyonbunny.game.objects.GoldCoin;
 import com.packtpub.libgdx.canyonbunny.game.objects.Rock;
+import com.packtpub.libgdx.canyonbunny.game.objects.Carrot;
 import com.packtpub.libgdx.canyonbunny.screens.MenuScreen;
 import com.packtpub.libgdx.canyonbunny.util.AudioManager;
 import com.packtpub.libgdx.canyonbunny.util.CameraHelper;
@@ -206,7 +207,7 @@ public class WorldController extends InputAdapter implements Disposable
 	public void update (float deltaTime)
 	{
 		handleDebugInput(deltaTime);
-		if (isGameOver())
+		if (isGameOver() || goalReached)
 		{
 			timeLeftGameOverDelay -= deltaTime;
 			//replaced init with back to menu method to return to menu
@@ -466,7 +467,7 @@ public class WorldController extends InputAdapter implements Disposable
 		// Test collision: Bunny Head <-> Goal
 		if (!goalReached)
 		{
-			//r2.set(level.goal.bounds);
+			r2.set(level.goal.bounds);
 			r2.x += level.goal.position.x;
 			r2.y += level.goal.position.y;
 			if (r1.overlaps(r2))
