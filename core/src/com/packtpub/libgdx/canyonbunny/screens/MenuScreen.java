@@ -170,9 +170,8 @@ public class MenuScreen extends AbstractGameScreen
 	 */
 	private void onCancelClicked()
 	{
-		btnMenuPlay.setVisible(true);
-		btnMenuOptions.setVisible(true);
-		winOptions.setVisible(false);
+		showMenuButtons(true);
+		showOptionsWindow(false, true);
 		AudioManager.instance.onSettingsUpdated();
 	}
 
@@ -292,9 +291,8 @@ public class MenuScreen extends AbstractGameScreen
 	private void onOptionsClicked () 
 	{
 		loadSettings();
-		btnMenuPlay.setVisible(false);
-		btnMenuOptions.setVisible(false);
-		winOptions.setVisible(true);
+		showMenuButtons(false);
+		
 	}
 	
 	/**
@@ -315,7 +313,7 @@ public class MenuScreen extends AbstractGameScreen
 		// Make options window slightly transparent
 		winOptions.setColor(1, 1, 1, 0.8f);
 		// Hide options window by default
-		winOptions.setVisible(false);
+		showOptionsWindow(false, false);
 		if (debugEnabled) winOptions.debug();
 		// Let TableLayout recalculate widget sizes and positions
 		winOptions.pack();
