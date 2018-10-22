@@ -34,6 +34,8 @@ import com.packtpub.libgdx.canyonbunny.util.Constants;
 import com.packtpub.libgdx.canyonbunny.util.AudioManager;
 import com.badlogic.gdx.math.Interpolation;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
+import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 
 /**
  * Displays a menu to the player
