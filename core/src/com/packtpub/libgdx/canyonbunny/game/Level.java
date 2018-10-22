@@ -21,14 +21,14 @@ import com.packtpub.libgdx.canyonbunny.game.objects.WaterOverlay;
 import com.packtpub.libgdx.canyonbunny.game.objects.BunnyHead;
 import com.packtpub.libgdx.canyonbunny.game.objects.Feather;
 import com.packtpub.libgdx.canyonbunny.game.objects.GoldCoin;
-//import com.packtpub.libgdx.canyonbunny.game.objects.Carrot;
-//import com.packtpub.libgdx.canyonbunny.game.objects.Goal;
+import com.packtpub.libgdx.canyonbunny.game.objects.Carrot;
+import com.packtpub.libgdx.canyonbunny.game.objects.Goal;
 
 public class Level 
 {
 	public static final String TAG = Level.class.getName();
-	//public Array<Carrot> carrots;
-	//public Goal goal;
+	public Array<Carrot> carrots;
+	public Goal goal;
 	 
 	public enum BLOCK_TYPE 
 	{
@@ -36,7 +36,7 @@ public class Level
 	    ROCK(0, 255, 0), // green
 	    PLAYER_SPAWNPOINT(255, 255, 255), // white
 	    ITEM_FEATHER(255, 0, 255), // purple
-	    //GOAL(255, 0, 0), // red
+	    GOAL(255, 0, 0), // red
 	    ITEM_GOLD_COIN(255, 255, 0); // yellow
 
 	    private int color;
