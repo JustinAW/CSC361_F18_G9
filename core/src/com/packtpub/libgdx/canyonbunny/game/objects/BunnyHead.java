@@ -291,12 +291,6 @@ public class BunnyHead extends AbstractGameObject
 			dimCorrectionY = 0.2f;
 		}
 		
-		//set special color when game object has a feather powerup
-		if(hasFeatherPowerup)
-		{
-			batch.setColor(1.0f, 0.8f, 0.0f, 1.0f);
-		}
-		
 		//draw image
 		reg = (TextureRegion) animation.getKeyFrame(stateTime, true);
 		
