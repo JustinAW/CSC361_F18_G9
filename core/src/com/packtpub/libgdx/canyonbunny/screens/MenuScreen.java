@@ -451,7 +451,6 @@ public class MenuScreen extends AbstractGameScreen
 		return tbl;
 	}
 
-	{
 	/**
 	 * easily show or hide menu buttons in an animated fashion
 	 * @param visible whether menu buttons are on or off
