@@ -1,5 +1,14 @@
+/**
+ * @author Justin Study ch 5 9/17/18
+ * @edits
+ * 		Justin Study ch 6
+ * 		Justin Study ch 11
+ * 		Justin Weigle 23-Oct-18
+ */
+
 package com.packtpub.libgdx.canyonbunny.game.objects;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Rectangle;
@@ -9,12 +18,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 /**
  * Class stores position dimension origin scale factor and angle of rotation 
  * of a game object.
- * 
- * @author Justin Study ch 5 9/17/18
- * @author Justin Study ch 6
- * @edits  Justin Study ch 11
  */
-
 public abstract class AbstractGameObject 
 {
 	//instance variables to keep track of objects
@@ -33,7 +37,13 @@ public abstract class AbstractGameObject
 	
 	public Body body;
 	
-	//creates a new object and places it in the screen
+	// animation variables
+	public float stateTime;
+	public Animation animation;
+	
+	/**
+	 * creates a new object and places it in the screen
+	 */
 	public AbstractGameObject() 
 	{
 		position = new Vector2();
@@ -46,6 +56,15 @@ public abstract class AbstractGameObject
 		friction = new Vector2();
 		acceleration = new Vector2();
 		bounds = new Rectangle();
+	}
+	
+	/**
+	 * Sets the current animation and resets stateTime to 0
+	 */
+	public void setAnimation (Animation animation)
+	{
+		this.animation = animation;
+		stateTime = 0;
 	}
 	
 	/*
@@ -102,6 +121,8 @@ public abstract class AbstractGameObject
 	 */
 	public void update(float deltaTime)
 	{
+		stateTime += deltaTime;
+		
 		if(body == null)
 		{		
 			updateMotionX(deltaTime);
