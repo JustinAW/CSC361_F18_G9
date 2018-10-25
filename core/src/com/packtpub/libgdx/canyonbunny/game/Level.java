@@ -147,6 +147,7 @@ public class Level
 					obj.position.set(pixelX, baseHeight * obj.dimension.y + offsetHeight);
 					goldcoins.add((GoldCoin)obj);
 				}
+				//goal
 				else if (BLOCK_TYPE.GOAL.sameColor(currentPixel))
 				{
 					obj = new Goal();
