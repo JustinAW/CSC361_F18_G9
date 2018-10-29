@@ -34,6 +34,8 @@ import com.packtpub.libgdx.canyonbunny.util.Constants;
 import com.packtpub.libgdx.canyonbunny.util.AudioManager;
 import com.badlogic.gdx.math.Interpolation;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
+import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 
 /**
  * Displays a menu to the player
@@ -168,9 +170,8 @@ public class MenuScreen extends AbstractGameScreen
 	 */
 	private void onCancelClicked()
 	{
-		btnMenuPlay.setVisible(true);
-		btnMenuOptions.setVisible(true);
-		winOptions.setVisible(false);
+		showMenuButtons(true);
+		showOptionsWindow(false, true);
 		AudioManager.instance.onSettingsUpdated();
 	}
 
@@ -277,9 +278,8 @@ public class MenuScreen extends AbstractGameScreen
 	private void onOptionsClicked () 
 	{
 		loadSettings();
-		btnMenuPlay.setVisible(false);
-		btnMenuOptions.setVisible(false);
-		winOptions.setVisible(true);
+		showMenuButtons(false);
+		
 	}
 	
 	/**
@@ -300,7 +300,7 @@ public class MenuScreen extends AbstractGameScreen
 		// Make options window slightly transparent
 		winOptions.setColor(1, 1, 1, 0.8f);
 		// Hide options window by default
-		winOptions.setVisible(false);
+		showOptionsWindow(false, false);
 		if (debugEnabled) winOptions.debug();
 		// Let TableLayout recalculate widget sizes and positions
 		winOptions.pack();
@@ -438,6 +438,53 @@ public class MenuScreen extends AbstractGameScreen
 		return tbl;
 	}
 
+	/**
+	 * easily show or hide menu buttons in an animated fashion
+	 * @param visible whether menu buttons are on or off
+	 */
+	private void showMenuButtons(boolean visible)
+	{
+		float moveDuration = 1.0f;
+		Interpolation moveEasing = Interpolation.swing;
+		float delayOptionsButton = 0.25f;
+		
+		float moveX = 300 * (visible ? -1 : 1);
+		float moveY = 0 * (visible ? -1 : 1);
+		final Touchable touchEnabled = visible ? Touchable.enabled : Touchable.disabled;
+		
+		btnMenuPlay.addAction(moveBy(moveX, moveY, moveDuration, moveEasing));
+		btnMenuOptions.addAction(sequence(delay(delayOptionsButton), 
+				moveBy(moveX, moveY, moveDuration, moveEasing)));
+		
+		SequenceAction seq = sequence();
+		if(visible)
+		{
+			seq.addAction(delay(delayOptionsButton + moveDuration));
+			seq.addAction(run(new Runnable()
+				{
+					public void run()
+					{
+						btnMenuPlay.setTouchable(touchEnabled);
+						btnMenuOptions.setTouchable(touchEnabled);
+					}
+				}));
+			stage.addAction(seq);
+		}
+	}
+	
+	/**
+	 * easily show or hide options window in animated fashion
+	 * @param visible whether options window is visible or not
+	 * @param animated if options window should be animated or not
+	 */
+	private void showOptionsWindow(boolean visible, boolean animated)
+	{
+		float alphaTo = visible ? 0.8f : 0.0f;
+		float duration = animated ? 1.0f : 0.0f;
+		Touchable touchEnabled = visible ? Touchable.enabled : Touchable.disabled;
+		winOptions.addAction(sequence(touchable(touchEnabled), alpha(alphaTo, duration)));
+	}
+	
 	/** 
 	 * calls to update and render the stage and enables calling
 	 * rebuildStage() in intervals defined by DEBUG_REBUILD_INTERVAL
